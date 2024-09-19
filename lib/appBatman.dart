@@ -10,8 +10,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Batman App',
       home: Scaffold(
-        body: BatmanScreen(),
+        body: const BatmanScreen(),
       ),
     );
   }
@@ -35,14 +36,14 @@ class BatmanScreen extends StatelessWidget {
               ),
             ),
             child: Image.asset(
-              'assets/batman.png', // Caminho para a imagem local
+              'assets/batman.png', // Verifique se a imagem está na pasta correta
               fit: BoxFit.cover,
             ),
           ),
         ),
         // Conteúdo principal (botões e texto)
         Positioned(
-          bottom: 20, // Ajuste a posição dos botões
+          bottom: 20,
           left: 0,
           right: 0,
           child: Column(
@@ -53,26 +54,40 @@ class BatmanScreen extends StatelessWidget {
                 onPressed: () {
                   // Ação do botão Entrar
                 },
-                child: const Text('Entrar'),
+                child: const Text(
+                  'Entrar',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold, // Aumentando o peso da fonte
+                  ),
+                ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black, // Cor do botão "Entrar"
                   padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20), // Bordas arredondadas
+                    borderRadius: BorderRadius.circular(20),
                   ),
                 ),
               ),
               const SizedBox(height: 10),
               // Botão "Sair"
-              TextButton(
+              ElevatedButton(
                 onPressed: () {
-                  // Ação do botão Sair
+                  // Ação do botão Sair (fechar o aplicativo)
+                  Navigator.of(context).pop(); // Volta à tela anterior
                 },
-                child: const Text('Sair', style: TextStyle(color: Colors.black)),
-                style: TextButton.styleFrom(
+                child: const Text(
+                  'Sair',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold, // Aumentando o peso da fonte
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red, // Cor do botão "Sair"
                   padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20), // Bordas arredondadas
+                    borderRadius: BorderRadius.circular(20),
                   ),
                 ),
               ),
