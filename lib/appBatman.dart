@@ -1,3 +1,4 @@
+import 'package:cinemelody/loginApp.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -25,7 +26,6 @@ class BatmanScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        // Imagem de fundo com gradiente
         Positioned.fill(
           child: Container(
             decoration: BoxDecoration(
@@ -36,12 +36,11 @@ class BatmanScreen extends StatelessWidget {
               ),
             ),
             child: Image.asset(
-              'assets/batman.png', // Verifique se a imagem está na pasta correta
+              'assets/batman.png',
               fit: BoxFit.cover,
             ),
           ),
         ),
-        // Conteúdo principal (botões e texto)
         Positioned(
           bottom: 20,
           left: 0,
@@ -49,20 +48,22 @@ class BatmanScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              // Botão "Entrar"
               ElevatedButton(
                 onPressed: () {
-                  // Ação do botão Entrar
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                  );
                 },
                 child: const Text(
                   'Entrar',
                   style: TextStyle(
                     color: Colors.white,
-                    fontWeight: FontWeight.bold, // Aumentando o peso da fonte
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black, // Cor do botão "Entrar"
+                  backgroundColor: Colors.black,
                   padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -70,21 +71,19 @@ class BatmanScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 10),
-              // Botão "Sair"
               ElevatedButton(
                 onPressed: () {
-                  // Ação do botão Sair (fechar o aplicativo)
-                  Navigator.of(context).pop(); // Volta à tela anterior
+                  Navigator.of(context).pop();
                 },
                 child: const Text(
                   'Sair',
                   style: TextStyle(
                     color: Colors.white,
-                    fontWeight: FontWeight.bold, // Aumentando o peso da fonte
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red, // Cor do botão "Sair"
+                  backgroundColor: Colors.red,
                   padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -92,7 +91,6 @@ class BatmanScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 30),
-              // Texto abaixo dos botões
               const Text(
                 'Pesquise por filmes, séries ou assista trailers',
                 style: TextStyle(color: Colors.white),
@@ -104,3 +102,4 @@ class BatmanScreen extends StatelessWidget {
     );
   }
 }
+
