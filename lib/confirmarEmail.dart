@@ -8,12 +8,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: LoginScreen(),
+      home: EmailConfirmationScreen(email: 'usuario@email.com'), // Exemplo de email, substitua com o valor correto
     );
   }
 }
 
-class LoginScreen extends StatelessWidget {
+class EmailConfirmationScreen extends StatelessWidget {
+  final String email;
+
+  EmailConfirmationScreen({required this.email});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,48 +38,50 @@ class LoginScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                // Espaço para a logo
+                // Espaço para a imagem de confirmação
                 Image.network(
-                  'https://i.imgur.com/Yy4jB5X.png',
+                  'https://i.imgur.com/oC53opI.png', // Substituir pela sua imagem local
                   height: 150,
                 ),
                 SizedBox(height: 20),
                 Text(
-                  "Bem vindo de volta!",
+                  "É necessário confirmar seu e-mail para ingressar na nossa comunidade",
+                  textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.white, // Texto branco
                   ),
                 ),
                 SizedBox(height: 20),
-                TextField(
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    labelText: "Seu email",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
+                Text(
+                  "O código foi enviado para o e-mail: $email",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.white70, // Texto branco com opacidade
                   ),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 20),
+                // Campo para inserir o código de verificação
                 TextField(
-                  obscureText: true,
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
-                    labelText: "Sua senha",
+                    labelText: "Insira o código de verificação",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                   ),
                 ),
                 SizedBox(height: 20),
+                // Botão de confirmar
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    // Ação para confirmar o código
+                  },
                   child: Text(
-                    "ENTRAR",
+                    "CONFIRMAR",
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -94,16 +100,11 @@ class LoginScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    // Ação para reenviar o código
+                  },
                   child: Text(
-                    "Esqueci minha senha",
-                    style: TextStyle(color: Colors.white), // Texto branco
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    "Ainda não tenho uma conta",
+                    "Reenviar código",
                     style: TextStyle(color: Colors.white), // Texto branco
                   ),
                 ),

@@ -8,12 +8,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: LoginScreen(),
+      home: SignUpScreen(),
     );
   }
 }
 
-class LoginScreen extends StatelessWidget {
+class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,12 +36,12 @@ class LoginScreen extends StatelessWidget {
               children: <Widget>[
                 // Espaço para a logo
                 Image.network(
-                  'https://i.imgur.com/Yy4jB5X.png',
+                  'https://i.imgur.com/Yy4jB5X.png', // Substituir pela sua logo local
                   height: 150,
                 ),
                 SizedBox(height: 20),
                 Text(
-                  "Bem vindo de volta!",
+                  "Crie sua conta",
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -49,33 +49,61 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 20),
+                // Campo Nome
                 TextField(
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
-                    labelText: "Seu email",
+                    labelText: "Nome",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                   ),
                 ),
                 SizedBox(height: 10),
+                // Campo E-mail
+                TextField(
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    labelText: "E-mail",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10),
+                // Campo Senha
                 TextField(
                   obscureText: true,
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
-                    labelText: "Sua senha",
+                    labelText: "Senha",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10),
+                // Campo Confirmação da Senha
+                TextField(
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    labelText: "Confirme sua senha",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                   ),
                 ),
                 SizedBox(height: 20),
+                // Botão de cadastro
                 ElevatedButton(
                   onPressed: () {},
                   child: Text(
-                    "ENTRAR",
+                    "CADASTRAR",
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -96,14 +124,7 @@ class LoginScreen extends StatelessWidget {
                 TextButton(
                   onPressed: () {},
                   child: Text(
-                    "Esqueci minha senha",
-                    style: TextStyle(color: Colors.white), // Texto branco
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    "Ainda não tenho uma conta",
+                    "Já tenho uma conta",
                     style: TextStyle(color: Colors.white), // Texto branco
                   ),
                 ),
