@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+defaultImageUrl() {
+  return 'https://disneyplusbrasil.com.br/wp-content/uploads/2024/04/Deadpool-e-Wolverine-DisneyPlus.jpg';
+}
+
 void main() {
   runApp(MyApp());
 }
@@ -9,132 +13,125 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        // Fundo de tela mais suave
-        backgroundColor: Color(0xFF1A2631), 
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Curtidas",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+      theme: ThemeData.dark(),
+      home: LikedSongsScreen(),
+    );
+  }
+}
+
+class LikedSongsScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color(0xFF0E1621),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: Text(
+          'Curtidas',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      body: ListView.builder(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        itemCount: 5, // Número de itens na lista
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 16.0),
+            child: Row(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Image.network(
+                    defaultImageUrl(),
+                    width: 100,
+                    height: 100,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        width: 100,
+                        height: 100,
+                        color: Colors.grey,
+                        child: Icon(
+                          Icons.broken_image,
+                          color: Colors.white,
+                        ),
+                      );
+                    },
+                  ),
                 ),
-              ),
-              SizedBox(height: 20),
-              Expanded(
-                child: ListView(
+                SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Título da música $index',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        'Ano - Duração',
+                        style: TextStyle(
+                          color: Colors.white.withOpacity(0.7),
+                          fontSize: 14,
+                        ),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        '12 músicas',
+                        style: TextStyle(
+                          color: Colors.white.withOpacity(0.7),
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Column(
                   children: [
-                    buildMusicItem(
-                      imageUrl: 'https://path-to-image.jpg', // Exemplo de URL de imagem
-                      title: 'Let It Go',
-                      year: '2014',
-                      duration: '2h 16m',
+                    Icon(
+                      Icons.favorite,
+                      color: Colors.red,
                     ),
-                    buildMusicItem(
-                      imageUrl: 'https://path-to-image.jpg', // Exemplo de URL de imagem
-                      title: 'Life Is a Highway',
-                      year: '2000',
-                      duration: '2h 5m',
-                    ),
-                    buildMusicItem(
-                      imageUrl: 'https://path-to-image.jpg', // Exemplo de URL de imagem
-                      title: 'Vou Viver...',
-                      year: '2020',
-                      duration: '1h 50m',
-                    ),
-                    buildMusicItem(
-                      imageUrl: 'https://path-to-image.jpg', // Exemplo de URL de imagem
-                      title: 'My Heart Will...',
-                      year: '1997',
-                      duration: '2h 14m',
-                    ),
-                    buildMusicItem(
-                      imageUrl: 'https://path-to-image.jpg', // Exemplo de URL de imagem
-                      title: 'Hymn to the Sea',
-                      year: '1997',
-                      duration: '3h 16m',
+                    SizedBox(height: 16),
+                    Icon(
+                      Icons.share,
+                      color: Colors.white,
                     ),
                   ],
                 ),
-              ),
-            ],
-          ),
-        ),
-        // Adicionando o BottomNavigationBar
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: const Color(0xFF141E30),
-          selectedItemColor: Colors.red,
-          unselectedItemColor: Colors.white54,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Início',
+              ],
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.favorite),
-              label: 'Favoritos',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle),
-              label: 'Conta',
-            ),
-          ],
-        ),
+          );
+        },
       ),
-    );
-  }
-
-  Widget buildMusicItem({
-    required String imageUrl,
-    required String title,
-    required String year,
-    required String duration,
-  }) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 20),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        gradient: LinearGradient(
-          colors: [Color(0xFF3A3E6A), Color(0xFF1D2D4D)], // Gradiente suave e harmonioso
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.5),
-            blurRadius: 10,
-            offset: Offset(0, 5), // Sombra para destacar o item
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Color(0xFF0E1621),
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search, color: Colors.white),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home, color: Colors.white),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite, color: Colors.white),
+            label: '',
           ),
         ],
-      ),
-      child: ListTile(
-        contentPadding: EdgeInsets.all(15),
-        leading: ClipRRect(
-          borderRadius: BorderRadius.circular(12),
-          child: Image.network(imageUrl, width: 70, height: 70, fit: BoxFit.cover),
-        ),
-        title: Text(
-          title,
-          style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w600),
-        ),
-        subtitle: Row(
-          children: [
-            Text(
-              '$year | $duration',
-              style: TextStyle(color: Colors.white70, fontSize: 14),
-            ),
-            Spacer(),
-            IconButton(
-              icon: Icon(Icons.favorite_border, color: Colors.white),
-              onPressed: () {},
-            ),
-          ],
-        ),
       ),
     );
   }

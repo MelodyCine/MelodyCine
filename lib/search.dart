@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+defaultImageUrl() {
+  return 'https://upload.wikimedia.org/wikipedia/pt/6/62/How_to_Train_Your_Dragon_%28filme%29_Poster.jpg';
+}
+
 void main() {
   runApp(MyApp());
 }
@@ -52,13 +56,23 @@ class SearchMoviesScreen extends StatelessWidget {
                 crossAxisSpacing: 16,
                 mainAxisSpacing: 16,
               ),
-              itemCount: 6, 
+              itemCount: 6,
               itemBuilder: (context, index) {
                 return ClipRRect(
                   borderRadius: BorderRadius.circular(16),
-                  child: Image.asset(
-                    'assets/movie_$index.jpg', 
+                  child: Image.network(
+                    defaultImageUrl(),
                     fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        color: Colors.grey[800],
+                        child: Icon(
+                          Icons.error,
+                          color: Colors.white,
+                          size: 50,
+                        ),
+                      );
+                    },
                   ),
                 );
               },
