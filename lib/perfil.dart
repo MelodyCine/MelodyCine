@@ -18,8 +18,11 @@ class MyApp extends StatelessWidget {
 class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // Verifica se a tela é pequena (como em celulares)
+    final isSmallScreen = MediaQuery.of(context).size.width < 600;
+
     return Scaffold(
-      backgroundColor: Color(0xFF141E30), // Cor de fundo externa da tela
+      backgroundColor: Color(0xFF141E30),
       appBar: AppBar(
         title: Text('Profile', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.transparent,
@@ -36,21 +39,22 @@ class ProfileScreen extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Color(0xFF0A0F45), Color(0xFF1A2A75)], // Gradiente mais suave para combinar com o protótipo
+                  colors: [
+                    Color.fromRGBO(63, 94, 150, 1),
+                    Color.fromRGBO(20, 30, 48, 1),
+                  ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                ),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(24),
-                  topRight: Radius.circular(24),
                 ),
               ),
               child: Column(
                 children: [
                   SizedBox(height: 20),
                   CircleAvatar(
-                    radius: 50,
-                    backgroundImage: AssetImage('assets/your_image.png'), // Substitua pelo caminho da imagem
+                    radius: isSmallScreen
+                        ? 50
+                        : 80, // Ajusta o tamanho para telas maiores
+                    backgroundImage: AssetImage('assets/your_image.png'),
                   ),
                   SizedBox(height: 10),
                   Row(
@@ -60,12 +64,15 @@ class ProfileScreen extends StatelessWidget {
                         'Marquinhos',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 18,
+                          fontSize: isSmallScreen
+                              ? 18
+                              : 24, // Ajuste do tamanho do texto
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       SizedBox(width: 8),
-                      Icon(Icons.edit, color: Colors.white, size: 16),
+                      Icon(Icons.edit,
+                          color: Colors.white, size: isSmallScreen ? 16 : 20),
                     ],
                   ),
                   SizedBox(height: 20),
@@ -99,7 +106,7 @@ class ProfileScreen extends StatelessWidget {
                       'Remover conta',
                       style: TextStyle(
                         color: Colors.red,
-                        fontSize: 16,
+                        fontSize: isSmallScreen ? 14 : 16, // Ajuste do tamanho
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -112,21 +119,21 @@ class ProfileScreen extends StatelessWidget {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Color(0xFF141E30), // Fundo mais escuro para combinar com a estética do protótipo
-        selectedItemColor: Colors.red, // Cor para o item selecionado (vermelho)
-        unselectedItemColor: Colors.white54, // Ícones não selecionados com opacidade suave
+        backgroundColor: Color(0xFF1B263B),
+        selectedItemColor: Colors.red,
+        unselectedItemColor: Colors.white54,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home, color: Colors.white),
-            label: '',
+            icon: Icon(Icons.home),
+            label: 'Início',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite, color: Colors.white),
-            label: '',
+            icon: Icon(Icons.search),
+            label: 'Buscar',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle, color: Colors.white),
-            label: '',
+            icon: Icon(Icons.favorite),
+            label: 'Favoritos',
           ),
         ],
       ),
