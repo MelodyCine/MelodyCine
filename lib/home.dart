@@ -154,25 +154,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               )
             : const Text('Melody Cine', style: TextStyle(color: Colors.white)),
-        backgroundColor: const Color(0xFF141E30), // Cor do fundo
+         backgroundColor: Color(0xFF1B263B),
         elevation: 0,
         actions: [
-          IconButton(
-            icon: Icon(
-              _isSearching ? Icons.clear : Icons.search,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              setState(() {
-                if (_isSearching) {
-                  _isSearching = false;
-                  _searchController.clear();
-                } else {
-                  _isSearching = true;
-                }
-              });
-            },
-          ),
           IconButton(
             icon: const Icon(Icons.account_circle, color: Colors.white),
             onPressed: () {},
@@ -183,8 +167,8 @@ class _MyHomePageState extends State<MyHomePage> {
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color(0xFF141E30),
-              Color(0xFF3F5E96),
+              Color.fromRGBO(63, 94, 150, 1),
+              Color.fromRGBO(20, 30, 48, 1),
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -202,7 +186,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color(0xFF141E30),
+        backgroundColor: Color(0xFF1B263B),
         selectedItemColor: Colors.red,
         unselectedItemColor: Colors.white54,
         items: const [
@@ -211,12 +195,12 @@ class _MyHomePageState extends State<MyHomePage> {
             label: 'Início',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Favoritos',
+            icon: Icon(Icons.search),
+            label: 'Buscar',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
-            label: 'Conta',
+            icon: Icon(Icons.favorite),
+            label: 'Favoritos',
           ),
         ],
       ),
@@ -262,8 +246,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ],
                       ),
-                      if (showTitles)
-                        const SizedBox(height: 8),
+                      if (showTitles) const SizedBox(height: 8),
                       if (showTitles)
                         Text(
                           movies[index]['title']!,
