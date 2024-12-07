@@ -1,20 +1,25 @@
+import 'package:cinemelody/home_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:cinemelody/appBatman.dart'; 
+
+import 'package:cinemelody/colors.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Batman App',
-      home: Scaffold(
-        body: const BatmanScreen(),
+      debugShowCheckedModeBanner: false,
+      title: 'MelodyCine',
+      theme: ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: Colours.scaffoldBgColor,
+        useMaterial3: true,
       ),
+      home: const HomeScreen(),
     );
   }
 }
