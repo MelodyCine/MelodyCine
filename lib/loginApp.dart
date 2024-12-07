@@ -1,4 +1,7 @@
+import 'package:cinemelody/cadastro.dart';
 import 'package:flutter/material.dart';
+import 'home_screen.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -17,17 +20,16 @@ class MyApp extends StatelessWidget {
 class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // Obtendo as dimensões da tela para responsividade
     final size = MediaQuery.of(context).size;
-    final isSmallScreen = size.width < 600; // Verifica se é uma tela pequena
+    final isSmallScreen = size.width < 600;
 
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color.fromRGBO(63, 94, 150, 1), 
-              Color.fromRGBO(20, 30, 48, 1), 
+              Color.fromRGBO(63, 94, 150, 1),
+              Color.fromRGBO(20, 30, 48, 1),
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -39,21 +41,21 @@ class LoginScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                // Espaço para a logo
                 Image.network(
                   'https://i.imgur.com/Yy4jB5X.png',
-                  height: isSmallScreen ? 100 : 150, // Redimensiona a logo para telas menores
+                  height: isSmallScreen ? 100 : 150,
                 ),
                 SizedBox(height: isSmallScreen ? 15 : 20),
                 Text(
                   "Bem vindo de volta!",
                   style: TextStyle(
-                    fontSize: isSmallScreen ? 20 : 24, // Fonte adaptável
+                    fontSize: isSmallScreen ? 20 : 24,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white, // Texto branco
+                    color: Colors.white,
                   ),
                 ),
                 SizedBox(height: isSmallScreen ? 15 : 20),
+                // Campo de E-mail
                 SizedBox(
                   width: isSmallScreen ? double.infinity : 400,
                   child: TextField(
@@ -62,8 +64,8 @@ class LoginScreen extends StatelessWidget {
                       fillColor: Colors.white,
                       labelText: "Seu email",
                       labelStyle: TextStyle(
-                        color: Colors.black, // Melhor contraste para texto
-                        fontSize: isSmallScreen ? 14 : 16, // Ajuste de fonte
+                        color: Colors.black,
+                        fontSize: isSmallScreen ? 14 : 16,
                       ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
@@ -72,6 +74,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 10),
+                // Campo de Senha
                 SizedBox(
                   width: isSmallScreen ? double.infinity : 400,
                   child: TextField(
@@ -91,10 +94,19 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: isSmallScreen ? 15 : 20),
+                // Botão de Entrar
                 SizedBox(
                   width: isSmallScreen ? double.infinity : 400,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                       // Navegar para a tela de cadastro
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HomeScreen(),
+                      ),
+                    );
+                    },
                     child: Text(
                       "ENTRAR",
                       style: TextStyle(
@@ -118,6 +130,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: isSmallScreen ? 10 : 15),
+                // Botões de texto adicionais
                 TextButton(
                   onPressed: () {},
                   child: Text(
@@ -128,8 +141,17 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+                // Botão para tela de cadastro
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    // Navegar para a tela de cadastro
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SignUpScreen(),
+                      ),
+                    );
+                  },
                   child: Text(
                     "Ainda não tenho uma conta",
                     style: TextStyle(
