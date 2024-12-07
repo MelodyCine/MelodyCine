@@ -1,3 +1,5 @@
+import 'package:cinemelody/contaCriadaSucesso.dart';
+import 'package:cinemelody/loginApp.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -42,7 +44,9 @@ class SignUpScreen extends StatelessWidget {
                 // Espaço para a logo
                 Image.network(
                   'https://i.imgur.com/Yy4jB5X.png', // Substituir pela sua logo local
-                  height: isSmallScreen ? 100 : 150, // Redimensiona a logo para telas menores
+                  height: isSmallScreen
+                      ? 100
+                      : 150, // Redimensiona a logo para telas menores
                 ),
                 SizedBox(height: isSmallScreen ? 15 : 20),
                 Text(
@@ -136,7 +140,19 @@ class SignUpScreen extends StatelessWidget {
                 SizedBox(
                   width: isSmallScreen ? double.infinity : 400,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+
+                        // Navegar para a tela de cadastro
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AccountCreatedScreen(),
+                      ),
+                    );
+
+
+
+                    },
                     child: Text(
                       "CADASTRAR",
                       style: TextStyle(
@@ -146,7 +162,7 @@ class SignUpScreen extends StatelessWidget {
                       ),
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromRGBO(62, 94, 150,1),
+                      backgroundColor: Color.fromRGBO(62, 94, 150, 1),
                       shadowColor: Colors.black.withOpacity(0.4),
                       elevation: 8,
                       shape: RoundedRectangleBorder(
@@ -161,7 +177,15 @@ class SignUpScreen extends StatelessWidget {
                 ),
                 SizedBox(height: isSmallScreen ? 10 : 15),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    // Navegar para a tela de cadastro
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginScreen(),
+                      ),
+                    );
+                  },
                   child: Text(
                     "Já tenho uma conta",
                     style: TextStyle(
