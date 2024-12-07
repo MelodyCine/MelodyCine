@@ -1,4 +1,7 @@
+import 'package:cinemelody/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'like.dart';
+import 'home.dart';
 
 defaultImageUrl() {
   return 'https://upload.wikimedia.org/wikipedia/pt/6/62/How_to_Train_Your_Dragon_%28filme%29_Poster.jpg';
@@ -26,8 +29,27 @@ class SearchMoviesScreen extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     int crossAxisCount = screenWidth < 600 ? 2 : 4; // 2 colunas em telas pequenas, 4 em telas grandes
 
+    // Função de navegação
+    void _navigateTo(int index) {
+      switch (index) {
+        case 0:
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => HomeScreen()), // Navega para a HomeScreen
+          );
+          break;
+        case 2:
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => LikedSongsScreen()), // Navega para a tela de favoritos
+          );
+          break;
+        default:
+          break;
+      }
+    }
+
     return Scaffold(
-    
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -116,8 +138,10 @@ class SearchMoviesScreen extends StatelessWidget {
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Color(0xFF1B263B),
+        currentIndex: 1, // A aba de "Buscar" será selecionada
         selectedItemColor: Colors.red,
         unselectedItemColor: Colors.white54,
+        onTap: _navigateTo,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),

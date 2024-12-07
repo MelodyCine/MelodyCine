@@ -1,4 +1,6 @@
+import 'package:cinemelody/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:cinemelody/search.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,7 +17,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class LikedSongsScreen extends StatelessWidget {
+class LikedSongsScreen extends StatefulWidget {
+  @override
+  _LikedSongsScreenState createState() => _LikedSongsScreenState();
+}
+
+class _LikedSongsScreenState extends State<LikedSongsScreen> {
+  int _selectedIndex = 2; // 2 indica que "Favoritos" está selecionado inicialmente.
+
   final List<Map<String, String>> songs = [
     {
       'title': 'Shallow',
@@ -49,6 +58,24 @@ class LikedSongsScreen extends StatelessWidget {
     },
   ];
 
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+    // Navegar entre as telas
+    if (index == 0) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+      );
+    } else if (index == 1) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => SearchMoviesScreen()),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,6 +93,7 @@ class LikedSongsScreen extends StatelessWidget {
         child: Column(
           children: [
             AppBar(
+              automaticallyImplyLeading: false,
               backgroundColor: Colors.transparent,
               elevation: 0,
               title: Text(
@@ -144,7 +172,7 @@ class LikedSongsScreen extends StatelessWidget {
                                     fontSize: 14,
                                   ),
                                 ),
-                                SizedBox (height: 4),
+                                SizedBox(height: 4),
                                 Text(
                                   '12 músicas',
                                   style: TextStyle(
@@ -182,6 +210,8 @@ class LikedSongsScreen extends StatelessWidget {
         backgroundColor: Color(0xFF1B263B),
         selectedItemColor: Colors.red,
         unselectedItemColor: Colors.white54,
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
