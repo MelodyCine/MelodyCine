@@ -33,6 +33,8 @@ dependencies:
   http: ^1.2.2
   audioplayers: 6.1.0
   carousel_slider: ^5.0.0
+  shared_preferences: ^2.0.15 
+
  
 
 
