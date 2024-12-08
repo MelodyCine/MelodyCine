@@ -1,10 +1,12 @@
-import 'package:cinemelody/like.dart';
-import 'package:cinemelody/search.dart';
+import 'package:cinemelody/perfil.dart';
 import 'package:flutter/material.dart';
+import 'package:cinemelody/search.dart';
+import 'package:cinemelody/like.dart';
 import 'package:cinemelody/models/movie.dart';
 import 'package:cinemelody/widgets/movies_slider.dart';
 import 'package:cinemelody/widgets/trending_slider.dart';
 import 'api/api.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -79,14 +81,17 @@ class _HomeScreenState extends State<HomeScreen> {
         automaticallyImplyLeading: false,
         backgroundColor: const Color(0xFF1B263B),
         elevation: 0,
-        title: const Text(
-          'MELODYCINE',
-          style: TextStyle(color: Colors.white),
-        ),
+        title: const Text('MelodyCine', style: TextStyle(color: Colors.white)),
         actions: [
           IconButton(
             icon: const Icon(Icons.account_circle, color: Colors.white),
-            onPressed: () {},
+            onPressed: () {
+              // Navegar para a tela de perfil
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ProfileScreen()),
+              );
+            },
           ),
         ],
       ),
@@ -156,7 +161,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Color(0xFF1B263B),
+        backgroundColor: const Color(0xFF1B263B),
         currentIndex: _selectedIndex,  // Definindo o índice atual
         selectedItemColor: Colors.red,
         unselectedItemColor: Colors.white54,
