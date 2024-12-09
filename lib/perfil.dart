@@ -99,113 +99,115 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const SizedBox(height: 20),
-                    CircleAvatar(
-                      radius: isSmallScreen ? 50 : 80,
-                      backgroundImage: NetworkImage(
-                        'https://cdn.pixabay.com/photo/2019/05/08/21/21/cat-4189697_1280.jpg',
+                child: Center(
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 20),
+                      CircleAvatar(
+                        radius: isSmallScreen ? 50 : 80,
+                        backgroundImage: NetworkImage(
+                          'https://cdn.pixabay.com/photo/2019/05/08/21/21/cat-4189697_1280.jpg',
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        _isEditing
-                            ? SizedBox(
-                                width: isSmallScreen ? 150 : 250,
-                                child: TextField(
-                                  controller: _nameController,
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _isEditing
+                              ? SizedBox(
+                                  width: isSmallScreen ? 150 : 250,
+                                  child: TextField(
+                                    controller: _nameController,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: isSmallScreen ? 18 : 24,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    decoration: InputDecoration(
+                                      hintText: 'Digite seu nome',
+                                      hintStyle: TextStyle(
+                                        color: Colors.white.withOpacity(0.6),
+                                      ),
+                                      border: InputBorder.none,
+                                      filled: true,
+                                      fillColor: Colors.white.withOpacity(0.2),
+                                    ),
+                                    onChanged: (text) {
+                                      setState(() {
+                                        _userName = text;
+                                      });
+                                    },
+                                    autofocus: true, // Garante que o campo receba foco
+                                    cursorColor: Colors.white, // Cursor branco
+                                  ),
+                                )
+                              : Text(
+                                  _userName,  // Exibe o nome atualizado
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: isSmallScreen ? 18 : 24,
                                     fontWeight: FontWeight.bold,
                                   ),
-                                  decoration: InputDecoration(
-                                    hintText: 'Digite seu nome',
-                                    hintStyle: TextStyle(
-                                      color: Colors.white.withOpacity(0.6),
-                                    ),
-                                    border: InputBorder.none,
-                                    filled: true,
-                                    fillColor: Colors.white.withOpacity(0.2),
-                                  ),
-                                  onChanged: (text) {
-                                    setState(() {
-                                      _userName = text;
-                                    });
-                                  },
-                                  autofocus: true, // Garante que o campo receba foco
-                                  cursorColor: Colors.white, // Cursor branco
                                 ),
-                              )
-                            : Text(
-                                _userName,  // Exibe o nome atualizado
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: isSmallScreen ? 18 : 24,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                        const SizedBox(width: 8),
-                        IconButton(
-                          icon: const Icon(Icons.edit, color: Colors.white),
-                          onPressed: () {
-                            setState(() {
-                              _isEditing = !_isEditing;
-                              if (!_isEditing) {
-                                // Salva o nome quando terminar a edição
-                                print("Nome salvo: ${_nameController.text}");
-                                _userName = _nameController.text; // Atualiza o nome exibido
-                                _saveUserName(); // Salva o nome no SharedPreferences
-                              } else {
-                                // Caso entre em modo de edição, coloca o nome no controller
-                                _nameController.text = _userName;
-                              }
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        _buildStatistic('Fixadas', '15'),
-                        _buildStatistic('Curtidas', '3'),
-                        _buildStatistic('Escutadas', '100'),
-                      ],
-                    ),
-                    const Divider(color: Colors.white54, height: 40),
-                    _buildInfoRow('Email:', 'Joãozinho@gmail.com'),
-                    _buildInfoRow('Idioma:', 'Português (Brasil)'),
-                    _buildInfoRow('Plano:', 'Free'),
-                    const SizedBox(height: 20),
-                    GestureDetector(
-                      onTap: () {},
-                      child: const Text(
-                        'FQA',
-                        style: TextStyle(
-                          color: Colors.blue,
-                          decoration: TextDecoration.underline,
+                          const SizedBox(width: 8),
+                          IconButton(
+                            icon: const Icon(Icons.edit, color: Colors.white),
+                            onPressed: () {
+                              setState(() {
+                                _isEditing = !_isEditing;
+                                if (!_isEditing) {
+                                  // Salva o nome quando terminar a edição
+                                  print("Nome salvo: ${_nameController.text}");
+                                  _userName = _nameController.text; // Atualiza o nome exibido
+                                  _saveUserName(); // Salva o nome no SharedPreferences
+                                } else {
+                                  // Caso entre em modo de edição, coloca o nome no controller
+                                  _nameController.text = _userName;
+                                }
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          _buildStatistic('Fixadas', '15'),
+                          _buildStatistic('Curtidas', '3'),
+                          _buildStatistic('Escutadas', '100'),
+                        ],
+                      ),
+                      const Divider(color: Colors.white54, height: 40),
+                      _buildInfoRow('Email:', 'Joãozinho@gmail.com'),
+                      _buildInfoRow('Idioma:', 'Português (Brasil)'),
+                      _buildInfoRow('Plano:', 'Free'),
+                      const SizedBox(height: 20),
+                      GestureDetector(
+                        onTap: () {},
+                        child: const Text(
+                          'FQA',
+                          style: TextStyle(
+                            color: Colors.blue,
+                            decoration: TextDecoration.underline,
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 20),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Text(
-                        'Remover conta',
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontSize: isSmallScreen ? 14 : 16,
-                          fontWeight: FontWeight.bold,
+                      const SizedBox(height: 20),
+                      GestureDetector(
+                        onTap: () {},
+                        child: Text(
+                          'Remover conta',
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontSize: isSmallScreen ? 14 : 16,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 20),
-                  ],
+                      const SizedBox(height: 20),
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cinemelody/constants.dart';
+import 'package:cinemelody/details.dart';
 import 'package:flutter/material.dart';
+import 'package:cinemelody/details.dart';
 
 class TrendingSlider extends StatelessWidget {
   const TrendingSlider({
@@ -25,12 +27,17 @@ class TrendingSlider extends StatelessWidget {
               autoPlayCurve: Curves.fastOutSlowIn,
               autoPlayAnimationDuration: const Duration(seconds: 2)),
           itemBuilder: (context, itemIndex, pageViewIndex) {
-            return ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image.network(
-                  filterQuality: FilterQuality.high,
-                  fit: BoxFit.cover,
-                  '${Constants.imagePath}${snapshot.data[itemIndex].backdropPath}'),
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsScreen(movie: snapshot.data[itemIndex],),),);
+              },
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.network(
+                    filterQuality: FilterQuality.high,
+                    fit: BoxFit.cover,
+                    '${Constants.imagePath}${snapshot.data[itemIndex].backdropPath}'),
+              ),
             );
           },
         ));
