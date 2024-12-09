@@ -5,13 +5,13 @@ import 'dart:convert';
 
 class Api {
   static const trendingUrl =
-      "https://api.themoviedb.org/3/movie/popular?api_key=${Constants.apiKey}";
+      "https://api.themoviedb.org/3/movie/popular?api_key=${Constants.apiKey}&language=pt-BR";
 
   static const topRatedUrl =
-      "https://api.themoviedb.org/3/movie/top_rated?api_key=${Constants.apiKey}";
+      "https://api.themoviedb.org/3/movie/top_rated?api_key=${Constants.apiKey}&language=pt-BR";
 
   static const upcomingUrl =
-      "https://api.themoviedb.org/3/movie/upcoming?api_key=${Constants.apiKey}";
+      "https://api.themoviedb.org/3/movie/upcoming?api_key=${Constants.apiKey}&language=pt-BR";
 
   Future<List<Movie>> getTrendingMovies() async {
     final response = await http.get(Uri.parse(trendingUrl));
