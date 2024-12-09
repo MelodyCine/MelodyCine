@@ -60,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
       case 1:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => SearchMoviesScreen()),
+          MaterialPageRoute(builder: (context) => SearchScreen()),
         );
         break;
       case 2:
@@ -162,10 +162,10 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: const Color(0xFF1B263B),
-        currentIndex: _selectedIndex,  // Definindo o índice atual
+        currentIndex: _selectedIndex,  
         selectedItemColor: Colors.red,
         unselectedItemColor: Colors.white54,
-        onTap: _navigateTo, // Ação de navegação
+        onTap: _navigateTo, 
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),

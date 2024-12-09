@@ -1,161 +1,137 @@
-import 'package:cinemelody/home_screen.dart';
+import 'package:cinemelody/constants.dart';
+import 'package:cinemelody/details.dart';
+import 'package:cinemelody/results.dart';
 import 'package:flutter/material.dart';
-import 'like.dart';
-import 'home.dart';
+import 'api/api.dart'; 
+import 'models/movie.dart';
 
-defaultImageUrl() {
-  return 'https://upload.wikimedia.org/wikipedia/pt/6/62/How_to_Train_Your_Dragon_%28filme%29_Poster.jpg';
-}
+class SearchScreen extends StatefulWidget {
+  const SearchScreen({super.key});
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark(),
-      home: SearchMoviesScreen(),
-    );
+  State<SearchScreen> createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
+  late Future<List<Movie>> trendingMovies;
+  late Future<List<Movie>> searchedMovies;
+  TextEditingController _controller = TextEditingController(); 
+  bool isSearching = false;
+
+  @override
+  void initState() {
+    super.initState();
+    trendingMovies = Api().getTrendingMovies(); 
   }
-}
 
-class SearchMoviesScreen extends StatelessWidget {
+  void _searchMovie() {
+    String query = _controller.text;  
+    print("Texto digitado: $query");  
+    if (query.isNotEmpty) {
+      setState(() {
+        isSearching = true;
+      });
+      // Navega para a ResultsScreen e passa o texto da pesquisa como parâmetro
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ResultsScreen(query: query),
+        ),
+      );
+    } else {
+      setState(() {
+        isSearching = false; 
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Verifica o tamanho da tela para a responsividade
-    double screenWidth = MediaQuery.of(context).size.width;
-    int crossAxisCount = screenWidth < 600 ? 2 : 4; // 2 colunas em telas pequenas, 4 em telas grandes
-
-    // Função de navegação
-    void _navigateTo(int index) {
-      switch (index) {
-        case 0:
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => HomeScreen()), // Navega para a HomeScreen
-          );
-          break;
-        case 2:
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => LikedSongsScreen()), // Navega para a tela de favoritos
-          );
-          break;
-        default:
-          break;
-      }
-    }
-
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Color.fromRGBO(63, 94, 150, 1), 
-              Color.fromRGBO(20, 30, 48, 1),
-            ],
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
           ),
-        ),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: TextField(
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Color(0xFF1B263B),
-                  hintText: 'Pesquise seu filme',
-                  hintStyle: TextStyle(color: Colors.white.withOpacity(0.7)),
-                  prefixIcon: Icon(Icons.search, color: Colors.white),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide.none,
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide(color: Colors.white),
+          child: Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _controller,
+                  onChanged: (value) {
+                   
+                    if (value.isEmpty) {
+                      setState(() {
+                        isSearching = false;
+                      });
+                    }
+                  },
+                  decoration: const InputDecoration(
+                    hintText: "Pesquise seu filme",
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                   ),
                 ),
               ),
-            ),
-            Expanded(
-              child: GridView.builder(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: crossAxisCount,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
+              IconButton(
+                icon: Icon(Icons.search),
+                onPressed: _searchMovie, 
+              ),
+            ],
+          ),
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: FutureBuilder<List<Movie>>(
+          future: isSearching ? searchedMovies : trendingMovies, 
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text("Erro: ${snapshot.error}"));
+            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return const Center(child: Text("Nenhum filme encontrado."));
+            } else {
+              final movies = snapshot.data!;
+              return GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3, 
+                  crossAxisSpacing: 10.0,
+                  mainAxisSpacing: 10.0,
+                  childAspectRatio: 0.6,
                 ),
-                itemCount: 6,
+                itemCount: movies.length,
                 itemBuilder: (context, index) {
-                  return ClipRRect(
-                    borderRadius: BorderRadius.circular(16),
-                    child: GestureDetector(
-                      onTap: () {
-                        // Ação ao tocar na imagem
-                        print('Imagem $index clicada');
-                      },
-                      child: AnimatedContainer(
-                        duration: Duration(milliseconds: 300),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.3),
-                              blurRadius: 8,
-                              offset: Offset(0, 4),
-                            ),
-                          ],
+                  final movie = movies[index];
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context, 
+                        MaterialPageRoute(
+                          builder: (context) => DetailsScreen(movie: movies[index]),
                         ),
-                        child: Image.network(
-                          defaultImageUrl(),
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) {
-                            return Container(
-                              color: Colors.grey[800],
-                              child: Icon(
-                                Icons.error,
-                                color: Colors.white,
-                                size: 50,
-                              ),
-                            );
-                          },
-                        ),
+                      );
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10.0),
+                      child: Image.network(
+                        Constants.imagePath + movie.posterPath, 
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Icon(Icons.broken_image, size: 50),
                       ),
                     ),
                   );
                 },
-              ),
-            ),
-          ],
+              );
+            }
+          },
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Color(0xFF1B263B),
-        currentIndex: 1, // A aba de "Buscar" será selecionada
-        selectedItemColor: Colors.red,
-        unselectedItemColor: Colors.white54,
-        onTap: _navigateTo,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Início',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Buscar',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Favoritos',
-          ),
-        ],
       ),
     );
   }
