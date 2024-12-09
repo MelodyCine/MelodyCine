@@ -59,7 +59,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final route = index == 0
         ? HomeScreen()
         : index == 1
-            ? SearchMoviesScreen()
+            ? SearchScreen()
             : LikedSongsScreen();
 
     Navigator.pushReplacement(

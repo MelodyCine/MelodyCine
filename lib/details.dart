@@ -65,6 +65,3 @@ class DetailsScreen extends StatelessWidget {
     );
   }
 }
-
-
-//Text('nome: ${movie.overview}, link banner: ${Constants.imagePath + movie.backdropPath},Resumo: ${movie.overview}, Outros dados: ${movie.releaseDate}, ${movie.voteAverage}'),

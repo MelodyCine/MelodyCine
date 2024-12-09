@@ -71,7 +71,7 @@ class _LikedSongsScreenState extends State<LikedSongsScreen> {
     } else if (index == 1) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => SearchMoviesScreen()),
+        MaterialPageRoute(builder: (context) => SearchScreen()),
       );
     }
   }
