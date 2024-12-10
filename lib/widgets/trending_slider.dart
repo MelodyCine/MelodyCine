@@ -2,7 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cinemelody/constants.dart';
 import 'package:cinemelody/details.dart';
 import 'package:flutter/material.dart';
-import 'package:cinemelody/details.dart';
+
 
 class TrendingSlider extends StatelessWidget {
   const TrendingSlider({

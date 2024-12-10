@@ -6,7 +6,7 @@ import 'package:cinemelody/constants.dart';
 class MovieSlider extends StatelessWidget {
   const MovieSlider({
     super.key,
-    required this.snapshot,
+    required this.snapshot
   });
 
   final AsyncSnapshot snapshot;
