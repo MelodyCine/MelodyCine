@@ -7,7 +7,6 @@ import 'package:cinemelody/widgets/movies_slider.dart';
 import 'package:cinemelody/widgets/trending_slider.dart';
 import 'api/api.dart';
 
-
 void main() {
   runApp(const MyApp());
 }
@@ -37,7 +36,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0; // Índice selecionado
+  int _selectedIndex = 0;
   late Future<List<Movie>> trendingMovies;
   late Future<List<Movie>> topRatedMovies;
   late Future<List<Movie>> upcomingMovies;
@@ -50,10 +49,9 @@ class _HomeScreenState extends State<HomeScreen> {
     upcomingMovies = Api().getUpcomingMovies();
   }
 
-  // Função para navegação e alterar o índice
   void _navigateTo(int index) {
     setState(() {
-      _selectedIndex = index; // Atualiza o índice selecionado
+      _selectedIndex = index;
     });
 
     switch (index) {
@@ -76,17 +74,27 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final isMobile = size.width < 600;
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: const Color(0xFF1B263B),
         elevation: 0,
-        title: const Text('MelodyCine', style: TextStyle(color: Colors.white)),
+        title: const Text(
+          'MelodyCine',
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontWeight: FontWeight.w700,
+            color: Colors.white,
+            fontSize: 20,
+          ),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.account_circle, color: Colors.white),
             onPressed: () {
-              // Navegar para a tela de perfil
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => ProfileScreen()),
@@ -109,17 +117,23 @@ class _HomeScreenState extends State<HomeScreen> {
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(isMobile ? 8.0 : 16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 35),
                 const Text(
-                  'Em alta',
-                  style: TextStyle(color: Colors.white),
+                  'Em Alta',
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
                 ),
                 const SizedBox(height: 15),
                 SizedBox(
+                  height: size.height * 0.25,
                   child: FutureBuilder(
                     future: trendingMovies,
                     builder: (context, snapshot) {
@@ -129,11 +143,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 const SizedBox(height: 35),
                 const Text(
-                  'Bem avaliados',
-                  style: TextStyle(color: Colors.white),
+                  'Bem Avaliados',
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
                 ),
                 const SizedBox(height: 15),
                 SizedBox(
+                  height: size.height * 0.25,
                   child: FutureBuilder(
                     future: topRatedMovies,
                     builder: (context, snapshot) {
@@ -144,10 +164,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(height: 35),
                 const Text(
                   'Recentes',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
                 ),
                 const SizedBox(height: 15),
                 SizedBox(
+                  height: size.height * 0.25,
                   child: FutureBuilder(
                     future: upcomingMovies,
                     builder: (context, snapshot) {
@@ -162,10 +188,10 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: const Color(0xFF1B263B),
-        currentIndex: _selectedIndex,  
+        currentIndex: _selectedIndex,
         selectedItemColor: Colors.red,
         unselectedItemColor: Colors.white54,
-        onTap: _navigateTo, 
+        onTap: _navigateTo,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
