@@ -161,7 +161,7 @@ class DetailsScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
 
-                /*// Artista Principal
+                // Artista Principal
                 const Text(
                   'Artista Principal',
                   style: TextStyle(
@@ -175,12 +175,12 @@ class DetailsScreen extends StatelessWidget {
                 Row(
                   children: [
                     CircleAvatar(
-                      backgroundImage: NetworkImage(Constants.imagePath + movie.actorImage),
+                      backgroundImage: NetworkImage('https://www.designi.com.br/images/preview/12161376.jpg'),
                       radius: 30,
                     ),
                     const SizedBox(width: 16),
                     Text(
-                      movie.actorName,
+                      'movie.actorName',
                       style: const TextStyle(
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w600,
@@ -190,7 +190,7 @@ class DetailsScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 20),*/
+                const SizedBox(height: 20),
 
                 // Recomendações
                 const Text(

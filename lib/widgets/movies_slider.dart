@@ -18,8 +18,8 @@ class MovieSlider extends StatelessWidget {
         child: CarouselSlider.builder(
           itemCount: snapshot.data!.length,
           options: CarouselOptions(
-            height: 200,
-            viewportFraction: 0.4,
+            height: 230,
+            viewportFraction: 0.35,
           ),
           itemBuilder: (context, itemIndex, pageViewIndex) {
             return GestureDetector(
@@ -31,6 +31,7 @@ class MovieSlider extends StatelessWidget {
                   child: SizedBox(
                     child: Image.network(
                         filterQuality: FilterQuality.high,
+                        width: 130,
                         fit: BoxFit.cover,
                         '${Constants.imagePath}${snapshot.data![itemIndex].posterPath}'),
                   )),
