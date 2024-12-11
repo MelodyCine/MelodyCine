@@ -3,6 +3,8 @@ import 'package:cinemelody/models/movie.dart';
 import 'package:cinemelody/constants.dart';
 import 'package:cinemelody/widgets/movies_slider.dart';
 import 'package:cinemelody/api/api.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({super.key, required this.movie});
@@ -161,9 +163,9 @@ class DetailsScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
 
-                // Artista Principal
+                // Links
                 const Text(
-                  'Artista Principal',
+                  'Ouvir trilha sonora:',
                   style: TextStyle(
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w700,
@@ -172,20 +174,46 @@ class DetailsScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 10),
-                Row(
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CircleAvatar(
-                      backgroundImage: NetworkImage('https://www.designi.com.br/images/preview/12161376.jpg'),
-                      radius: 30,
+                    TextButton(
+                      onPressed: () {
+                        print("https://open.spotify.com/search/trilha%20sonora%20filme:${movie.title}");
+                      },
+                      child: const Text(
+                        'Spotify',
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          color: Colors.blueAccent,
+                          fontSize: 16,
+                        ),
+                      ),
                     ),
-                    const SizedBox(width: 16),
-                    Text(
-                      'movie.actorName',
-                      style: const TextStyle(
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                        fontSize: 16,
+                    TextButton(
+                      onPressed: () {
+                        print("https://music.youtube.com/search?q=trilha%20sonora%20filme:${movie.title}");
+                      },
+                      child: const Text(
+                        'Youtube Music',
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          color: Colors.blueAccent,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        print("https://music.apple.com/br/search?term=trilha%20sonora%20filme:${movie.title}");
+                      },
+                      child: const Text(
+                        'Apple Music',
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          color: Colors.blueAccent,
+                          fontSize: 16,
+                        ),
                       ),
                     ),
                   ],
@@ -217,7 +245,6 @@ class DetailsScreen extends StatelessWidget {
           ),
         ),
       ),
-      
     );
   }
 }
