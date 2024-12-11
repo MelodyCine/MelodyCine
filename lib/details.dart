@@ -5,11 +5,20 @@ import 'package:cinemelody/widgets/movies_slider.dart';
 import 'package:cinemelody/api/api.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({super.key, required this.movie});
 
   final Movie movie;
+
+  // Função para abrir URLs
+  Future<void> _launchURL(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      throw 'Não foi possível abrir o link: $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -179,7 +188,7 @@ class DetailsScreen extends StatelessWidget {
                   children: [
                     TextButton(
                       onPressed: () {
-                        print("https://open.spotify.com/search/trilha%20sonora%20filme:${movie.title}");
+                        _launchURL("https://open.spotify.com/search/trilha%20sonora%20filme:${movie.title}");
                       },
                       child: const Text(
                         'Spotify',
@@ -192,7 +201,7 @@ class DetailsScreen extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () {
-                        print("https://music.youtube.com/search?q=trilha%20sonora%20filme:${movie.title}");
+                        _launchURL("https://music.youtube.com/search?q=trilha%20sonora%20filme:${movie.title}");
                       },
                       child: const Text(
                         'Youtube Music',
@@ -205,7 +214,7 @@ class DetailsScreen extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () {
-                        print("https://music.apple.com/br/search?term=trilha%20sonora%20filme:${movie.title}");
+                        _launchURL("https://music.apple.com/br/search?term=trilha%20sonora%20filme:${movie.title}");
                       },
                       child: const Text(
                         'Apple Music',
