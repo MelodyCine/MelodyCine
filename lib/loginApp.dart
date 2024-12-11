@@ -1,4 +1,5 @@
 import 'package:cinemelody/cadastro.dart';
+import 'package:cinemelody/esqueceuSenha.dart';
 import 'package:flutter/material.dart';
 import 'home_screen.dart';
 
@@ -131,8 +132,16 @@ class LoginScreen extends StatelessWidget {
                 ),
                 SizedBox(height: isSmallScreen ? 10 : 15),
                 // Botões de texto adicionais
-                TextButton(
-                  onPressed: () {},
+                  TextButton(
+                  onPressed: () {
+                    // Navegar para a tela de cadastro
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ForgotPasswordScreen(),
+                      ),
+                    );
+                  },
                   child: Text(
                     "Esqueci minha senha",
                     style: TextStyle(

@@ -2,7 +2,7 @@ import 'package:cinemelody/home_screen.dart';
 import 'package:cinemelody/like.dart';
 import 'package:cinemelody/search.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart'; // Importa o SharedPreferences
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(MyApp());
@@ -27,30 +27,36 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   int _currentIndex = 0;
   TextEditingController _nameController = TextEditingController();
-  bool _isEditing = false; // Verifica se está no modo de edição
-  String _userName = 'Marquinhos'; // Nome exibido inicialmente
+  bool _isEditing = false;
+  String _userName = 'MelodyCine';
 
   @override
   void initState() {
     super.initState();
-    _loadUserName(); // Carrega o nome do usuário ao iniciar a tela
+    _loadUserName();
   }
 
-  // Função para carregar o nome salvo do SharedPreferences
   Future<void> _loadUserName() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      _userName = prefs.getString('userName') ?? 'Marquinhos'; // Valor padrão 'Marquinhos' caso não haja nome salvo
+      _userName = prefs.getString('userName') ?? 'MelodyCine';
     });
   }
 
-  // Função para salvar o nome no SharedPreferences
   Future<void> _saveUserName() async {
+    if (_userName.trim().isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('O nome não pode estar vazio!')),
+      );
+      return;
+    }
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('userName', _userName); // Salva o nome
+    await prefs.setString('userName', _userName);
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Nome salvo com sucesso!')),
+    );
   }
 
-  // Função para navegar para as telas apropriadas
   void _navigateTo(int index) {
     setState(() {
       _currentIndex = index;
@@ -68,6 +74,47 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+  void _showFeatureUnavailableAlert() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text(
+          'Funcionalidade Indisponível',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontWeight: FontWeight.w700,
+            fontSize: 20,
+          ),
+        ),
+        content: const Text(
+          'Essa funcionalidade estará disponível na próxima versão do aplicativo. Fique atento às atualizações para aproveitar novos recursos.',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontWeight: FontWeight.w300,
+            fontSize: 14,
+          ),
+        ),
+        actions: [
+          Center(
+            child: TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text(
+                "OK",
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w300,
+                  fontSize: 14,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final isSmallScreen = MediaQuery.of(context).size.width < 600;
@@ -75,12 +122,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFF141E30),
       appBar: AppBar(
-        title: const Text('Perfil', style: TextStyle(color: Colors.white)),
+        title: const Text(
+          'Perfil',
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontWeight: FontWeight.w700,
+            color: Colors.white,
+            fontSize: 20,
+          ),
+        ),
+        iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: Colors.transparent,
         elevation: 0,
+        automaticallyImplyLeading: false,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.pop(context),
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => HomeScreen()),
+            );
+          },
         ),
       ),
       body: Column(
@@ -137,12 +199,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         _userName = text;
                                       });
                                     },
-                                    autofocus: true, // Garante que o campo receba foco
-                                    cursorColor: Colors.white, // Cursor branco
+                                    autofocus: true,
+                                    cursorColor: Colors.white,
                                   ),
                                 )
                               : Text(
-                                  _userName,  // Exibe o nome atualizado
+                                  _userName,
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: isSmallScreen ? 18 : 24,
@@ -151,19 +213,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                           const SizedBox(width: 8),
                           IconButton(
-                            icon: const Icon(Icons.edit, color: Colors.white),
+                            icon: Icon(
+                              _isEditing ? Icons.save : Icons.edit,
+                              color: Colors.white,
+                            ),
+                            tooltip: _isEditing ? 'Salvar nome' : 'Editar nome',
                             onPressed: () {
                               setState(() {
-                                _isEditing = !_isEditing;
-                                if (!_isEditing) {
-                                  // Salva o nome quando terminar a edição
-                                  print("Nome salvo: ${_nameController.text}");
-                                  _userName = _nameController.text; // Atualiza o nome exibido
-                                  _saveUserName(); // Salva o nome no SharedPreferences
+                                if (_isEditing) {
+                                  _saveUserName();
                                 } else {
-                                  // Caso entre em modo de edição, coloca o nome no controller
                                   _nameController.text = _userName;
                                 }
+                                _isEditing = !_isEditing;
                               });
                             },
                           ),
@@ -173,29 +235,58 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          _buildStatistic('Fixadas', '15'),
-                          _buildStatistic('Curtidas', '3'),
-                          _buildStatistic('Escutadas', '100'),
+                          _buildStatistic('Fixadas', '999'),
+                          _buildStatistic('Curtidas', '999'),
+                          _buildStatistic('Escutadas', '999'),
                         ],
                       ),
                       const Divider(color: Colors.white54, height: 40),
-                      _buildInfoRow('Email:', 'Joãozinho@gmail.com'),
+                      _buildInfoRow('Email:', 'melodycine39@gmail.com'),
                       _buildInfoRow('Idioma:', 'Português (Brasil)'),
                       _buildInfoRow('Plano:', 'Free'),
+
                       const SizedBox(height: 20),
                       GestureDetector(
-                        onTap: () {},
-                        child: const Text(
-                          'FQA',
-                          style: TextStyle(
-                            color: Colors.blue,
-                            decoration: TextDecoration.underline,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: const Text(
+                                'Aviso',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 20,
+                                ),
+                              ),
+                              content: const Text(
+                                'É necessário fazer login para remover uma conta!',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              actions: [
+                                Center(
+                                  child: TextButton(
+                                    onPressed: () => Navigator.pop(context),
+                                    child: const Text(
+                                      "OK",
+                                      style: TextStyle(
+                                        fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.w300,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
                         child: Text(
                           'Remover conta',
                           style: TextStyle(
@@ -204,6 +295,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
+                      ),
+                      const SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          TextButton(
+                            onPressed: _showFeatureUnavailableAlert,
+                            child: Text(
+                              'Cadastro',
+                              style: TextStyle(
+                                color: Colors.blueAccent,
+                                fontSize: isSmallScreen ? 14 : 16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 20),
+                          TextButton(
+                            onPressed: _showFeatureUnavailableAlert,
+                            child: Text(
+                              'Login',
+                              style: TextStyle(
+                                color: Colors.blueAccent,
+                                fontSize: isSmallScreen ? 14 : 16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                       const SizedBox(height: 20),
                     ],

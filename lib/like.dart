@@ -1,4 +1,5 @@
 import 'package:cinemelody/home_screen.dart';
+import 'package:cinemelody/perfil.dart';
 import 'package:flutter/material.dart';
 import 'package:cinemelody/search.dart';
 
@@ -23,38 +24,44 @@ class LikedSongsScreen extends StatefulWidget {
 }
 
 class _LikedSongsScreenState extends State<LikedSongsScreen> {
-  int _selectedIndex = 2; // 2 indica que "Favoritos" está selecionado inicialmente.
+  int _selectedIndex =
+      2; // 2 indica que "Favoritos" está selecionado inicialmente.
 
   final List<Map<String, String>> songs = [
     {
       'title': 'Shallow',
       'year': '2018',
       'duration': '3:36',
-      'imageUrl': 'https://p2.trrsf.com/image/fget/cf/940/0/images.terra.com/2016/03/04/6foto-1filmes-de-musicas.jpg',
+      'imageUrl':
+          'https://p2.trrsf.com/image/fget/cf/940/0/images.terra.com/2016/03/04/6foto-1filmes-de-musicas.jpg',
     },
     {
       'title': 'Let It Go',
       'year': '2013',
       'duration': '3:44',
-      'imageUrl': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8K6Mh0CcP4F_sD4RFNDRbpiA3DMIavUjAvA&s',
+      'imageUrl':
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8K6Mh0CcP4F_sD4RFNDRbpiA3DMIavUjAvA&s',
     },
     {
       'title': 'A Whole New World',
       'year': '1992',
       'duration': '2:38',
-      'imageUrl': 'https://p2.trrsf.com/image/fget/cf/940/0/images.terra.com/2016/03/04/6foto-1filmes-de-musicas.jpg',
+      'imageUrl':
+          'https://p2.trrsf.com/image/fget/cf/940/0/images.terra.com/2016/03/04/6foto-1filmes-de-musicas.jpg',
     },
     {
       'title': 'Circle of Life',
       'year': '1994',
       'duration': '4:00',
-      'imageUrl': 'https://p2.trrsf.com/image/fget/cf/940/0/images.terra.com/2016/03/04/6foto-1filmes-de-musicas.jpg',
+      'imageUrl':
+          'https://p2.trrsf.com/image/fget/cf/940/0/images.terra.com/2016/03/04/6foto-1filmes-de-musicas.jpg',
     },
     {
       'title': 'Everything Is Awesome',
       'year': '2014',
       'duration': '2:32',
-      'imageUrl': 'https://p2.trrsf.com/image/fget/cf/940/0/images.terra.com/2016/03/04/6foto-1filmes-de-musicas.jpg',
+      'imageUrl':
+          'https://p2.trrsf.com/image/fget/cf/940/0/images.terra.com/2016/03/04/6foto-1filmes-de-musicas.jpg',
     },
   ];
 
@@ -74,6 +81,64 @@ class _LikedSongsScreenState extends State<LikedSongsScreen> {
         MaterialPageRoute(builder: (context) => SearchScreen()),
       );
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Exibe a mensagem logo ao entrar na tela
+    Future.delayed(Duration.zero, () {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text(
+              'Funcionalidade Indisponível',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w700,
+                color: Color.fromARGB(255, 0, 0, 0),
+                fontSize: 20,
+              ),
+            ),
+            content: Text(
+              'Para visualizar seus favoritos, é necessário fazer login.',
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w300,
+                color: Color.fromARGB(255, 0, 0, 0),
+                fontSize: 14,
+              ),
+            ),
+            actions: [
+              Center(
+                // Centraliza o botão
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => ProfileScreen()),
+                    );
+                  },
+                  child: Text(
+                    'Ok',
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w300,
+                      color: Color.fromARGB(255, 0, 0, 0),
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+      );
+    });
   }
 
   @override
@@ -108,7 +173,8 @@ class _LikedSongsScreenState extends State<LikedSongsScreen> {
             ),
             Expanded(
               child: ListView.builder(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 itemCount: songs.length,
                 itemBuilder: (context, index) {
                   final song = songs[index];
