@@ -39,6 +39,9 @@ dependencies:
   vm_service: ^14.2.5
   async: ^2.11.0
   url_launcher: ^6.0.10
+  intl: ^0.20.1
+  font_awesome_flutter: ^10.8.0
+  
 
 dev_dependencies:
   flutter_test:
