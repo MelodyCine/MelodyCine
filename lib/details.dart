@@ -4,6 +4,7 @@ import 'package:cinemelody/constants.dart';
 import 'package:cinemelody/widgets/movies_slider.dart';
 import 'package:cinemelody/api/api.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';  // Importando os ícones
 
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({super.key, required this.movie});
@@ -186,11 +187,15 @@ class DetailsScreen extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TextButton(
+                    TextButton.icon(
                       onPressed: () {
                         _launchURL("https://open.spotify.com/search/trilha%20sonora%20filme:${movie.title}");
                       },
-                      child: const Text(
+                      icon: const FaIcon(
+                        FontAwesomeIcons.spotify,
+                        color: Colors.green,
+                      ),
+                      label: const Text(
                         'Spotify',
                         style: TextStyle(
                           fontFamily: 'Poppins',
@@ -199,11 +204,15 @@ class DetailsScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    TextButton(
+                    TextButton.icon(
                       onPressed: () {
                         _launchURL("https://music.youtube.com/search?q=trilha%20sonora%20filme:${movie.title}");
                       },
-                      child: const Text(
+                      icon: const FaIcon(
+                        FontAwesomeIcons.youtube,
+                        color: Colors.red,
+                      ),
+                      label: const Text(
                         'Youtube Music',
                         style: TextStyle(
                           fontFamily: 'Poppins',
@@ -212,11 +221,15 @@ class DetailsScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    TextButton(
+                    TextButton.icon(
                       onPressed: () {
                         _launchURL("https://music.apple.com/br/search?term=trilha%20sonora%20filme:${movie.title}");
                       },
-                      child: const Text(
+                      icon: const FaIcon(
+                        FontAwesomeIcons.apple,
+                        color: Colors.black,
+                      ),
+                      label: const Text(
                         'Apple Music',
                         style: TextStyle(
                           fontFamily: 'Poppins',
