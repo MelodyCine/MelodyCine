@@ -5,6 +5,7 @@ import 'package:cinemelody/widgets/movies_slider.dart';
 import 'package:cinemelody/api/api.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';  // Importando os ícones
+import 'package:intl/intl.dart';
 
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({super.key, required this.movie});
@@ -19,6 +20,12 @@ class DetailsScreen extends StatelessWidget {
     } else {
       throw 'Não foi possível abrir o link: $url';
     }
+  }
+
+   // Função para formatar a data no formato pt-BR
+  String formatDate(String date) {
+    DateTime parsedDate = DateTime.parse(date);
+    return DateFormat('dd/MM/yyyy').format(parsedDate);
   }
 
   @override
@@ -108,7 +115,7 @@ class DetailsScreen extends StatelessWidget {
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      'Ano de lançamento: ${movie.releaseDate}',
+                      'Ano de lançamento: ${formatDate(movie.releaseDate)}',
                       style: const TextStyle(
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w700,
