@@ -1,3 +1,4 @@
+import 'package:cinemelody/home_screen.dart';
 import 'package:cinemelody/loginApp.dart';
 import 'package:flutter/material.dart';
 
@@ -53,7 +54,7 @@ class App extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                    MaterialPageRoute(builder: (context) => HomeScreen()),
                   );
                 },
                 child: const Text(
