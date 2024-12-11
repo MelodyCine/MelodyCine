@@ -1,15 +1,16 @@
+import 'package:cinemelody/loginApp.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(Esqueciminhasenha());
 }
 
-class MyApp extends StatelessWidget {
+class Esqueciminhasenha extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ForgotPasswordScreen(), // Tela de Esqueci a Senha
+      home: ForgotPasswordScreen(),
     );
   }
 }
@@ -18,15 +19,15 @@ class ForgotPasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final isSmallScreen = size.width < 600; // Detecta tela pequena
+    final isSmallScreen = size.width < 600;
 
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color.fromRGBO(63, 94, 150, 1), // Cor azul escuro
-              Color.fromRGBO(20, 30, 48, 1), // Cor azul mais claro
+              Color.fromRGBO(63, 94, 150, 1),
+              Color.fromRGBO(20, 30, 48, 1),
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -38,39 +39,39 @@ class ForgotPasswordScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                // Espaço para a imagem de recuperação de senha
                 Image.network(
-                  'https://i.imgur.com/pZ5d6j0.png', // Substitua pela sua imagem de esqueci a senha
-                  height: isSmallScreen ? 100 : 150, // Redimensiona para telas menores
+                  'https://i.imgur.com/Yy4jB5X.png',
+                  height: isSmallScreen ? 100 : 150,
                 ),
                 SizedBox(height: isSmallScreen ? 15 : 20),
                 Text(
-                  "Esqueci minha senha",
-                  textAlign: TextAlign.center,
+                  "Recupere sua conta",
                   style: TextStyle(
-                    fontSize: isSmallScreen ? 18 : 20,
+                    fontSize: isSmallScreen ? 20 : 24,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white, // Texto branco
+                    color: Colors.white,
                   ),
                 ),
                 SizedBox(height: isSmallScreen ? 15 : 20),
-                Text(
-                  "Digite seu e-mail para recuperar sua senha.",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: isSmallScreen ? 14 : 16,
-                    color: Colors.white70, // Texto branco com opacidade
+                SizedBox(
+                  width: isSmallScreen ? double.infinity : 400,
+                  child: Text(
+                    "Digite seu e-mail registrado para receber instruções de recuperação.",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: isSmallScreen ? 14 : 16,
+                    ),
                   ),
                 ),
                 SizedBox(height: isSmallScreen ? 15 : 20),
-                // Campo de E-mail
                 SizedBox(
                   width: isSmallScreen ? double.infinity : 400,
                   child: TextField(
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.white,
-                      labelText: "Seu e-mail",
+                      labelText: "Seu email",
                       labelStyle: TextStyle(
                         color: Colors.black,
                         fontSize: isSmallScreen ? 14 : 16,
@@ -82,15 +83,29 @@ class ForgotPasswordScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: isSmallScreen ? 15 : 20),
-                // Botão de Enviar
                 SizedBox(
-                  width: isSmallScreen ? double.infinity : 400, // Responsivo
+                  width: isSmallScreen ? double.infinity : 400,
                   child: ElevatedButton(
                     onPressed: () {
-                      // Ação para enviar o e-mail de recuperação
+                      // Aqui você pode adicionar a lógica para enviar o e-mail de recuperação.
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: Text("E-mail enviado!"),
+                          content: Text(
+                            "Verifique sua caixa de entrada para as instruções de recuperação.",
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: Text("OK"),
+                            ),
+                          ],
+                        ),
+                      );
                     },
                     child: Text(
-                      "ENVIAR E-MAIL DE RECUPERAÇÃO",
+                      "ENVIAR",
                       style: TextStyle(
                         fontSize: isSmallScreen ? 16 : 18,
                         fontWeight: FontWeight.bold,
@@ -99,27 +114,31 @@ class ForgotPasswordScreen extends StatelessWidget {
                     ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color.fromRGBO(62, 94, 150, 1),
-                      shadowColor: Colors.black.withOpacity(0.4), // Sombra leve
-                      elevation: 8, // Destaque com sombra
+                      shadowColor: Colors.black.withOpacity(0.4),
+                      elevation: 8,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12), // Borda arredondada
+                        borderRadius: BorderRadius.circular(12),
                       ),
                       padding: EdgeInsets.symmetric(
-                        horizontal: isSmallScreen ? 50 : 100, // Ajusta o padding horizontal
-                        vertical: 15, // Padding vertical para mais altura
+                        horizontal: isSmallScreen ? 50 : 100,
+                        vertical: 15,
                       ),
                     ),
                   ),
                 ),
                 SizedBox(height: isSmallScreen ? 10 : 15),
-                // Texto adicional (opcional)
-                TextButton(
+                   TextButton(
                   onPressed: () {
-                    // Ação para voltar à tela de login
-                    Navigator.pop(context);
+                    // Navegar para a tela de cadastro
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginScreen(),
+                      ),
+                    );
                   },
                   child: Text(
-                    "Voltar para o login",
+                    "Voltar ao login",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: isSmallScreen ? 14 : 16,
@@ -134,3 +153,4 @@ class ForgotPasswordScreen extends StatelessWidget {
     );
   }
 }
+

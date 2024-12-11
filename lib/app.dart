@@ -14,14 +14,14 @@ class MyApp extends StatelessWidget {
        debugShowCheckedModeBanner: false,
       title: 'Batman App',
       home: Scaffold(
-        body: const BatmanScreen(),
+        body: const App(),
       ),
     );
   }
 }
 
-class BatmanScreen extends StatelessWidget {
-  const BatmanScreen({Key? key}) : super(key: key);
+class App extends StatelessWidget {
+  const App({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

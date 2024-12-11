@@ -137,7 +137,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: FutureBuilder(
                     future: trendingMovies,
                     builder: (context, snapshot) {
-                      return TrendingSlider(snapshot: snapshot);
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(
+                            child: CircularProgressIndicator(
+                          color: Colors.red,
+                        ));
+                      } else {
+                        return TrendingSlider(snapshot: snapshot);
+                      }
                     },
                   ),
                 ),
@@ -157,7 +164,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: FutureBuilder(
                     future: topRatedMovies,
                     builder: (context, snapshot) {
-                      return MovieSlider(snapshot: snapshot);
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(
+                            child: CircularProgressIndicator(
+                          color: Colors.red,
+                        ));
+                      } else {
+                        return MovieSlider(snapshot: snapshot);
+                      }
                     },
                   ),
                 ),
@@ -177,7 +191,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: FutureBuilder(
                     future: upcomingMovies,
                     builder: (context, snapshot) {
-                      return MovieSlider(snapshot: snapshot);
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(
+                            child: CircularProgressIndicator(
+                          color: Colors.red,
+                        ));
+                      } else {
+                        return MovieSlider(snapshot: snapshot);
+                      }
                     },
                   ),
                 ),

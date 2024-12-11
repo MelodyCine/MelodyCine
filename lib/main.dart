@@ -1,25 +1,24 @@
-import 'package:cinemelody/home_screen.dart';
+import 'package:cinemelody/app.dart';
 import 'package:flutter/material.dart';
 
-import 'package:cinemelody/colors.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+       debugShowCheckedModeBanner: false,
       title: 'MelodyCine',
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: Colours.scaffoldBgColor,
-        useMaterial3: true,
+      home: Scaffold(
+        body: const App(),
       ),
-      home: const HomeScreen(),
     );
   }
 }
+
+
