@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: EmailConfirmationScreen(email: 'usuario@email.com'), // Exemplo de email, substitua com o valor correto
+      home: EmailConfirmationScreen(email: 'usuario@email.com'),
     );
   }
 }
@@ -21,17 +21,16 @@ class EmailConfirmationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Obtendo dimensões da tela para responsividade
     final size = MediaQuery.of(context).size;
-    final isSmallScreen = size.width < 600; // Verifica se a tela é pequena
+    final isSmallScreen = size.width < 600;
 
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color.fromRGBO(63, 94, 150, 1), // Cor azul escuro
-              Color.fromRGBO(20, 30, 48, 1), // Cor azul mais claro
+              Color.fromRGBO(63, 94, 150, 1),
+              Color.fromRGBO(20, 30, 48, 1),
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -45,8 +44,8 @@ class EmailConfirmationScreen extends StatelessWidget {
               children: <Widget>[
                 // Espaço para a imagem de confirmação
                 Image.network(
-                  'https://i.imgur.com/oC53opI.png', // Substituir pela sua imagem local
-                  height: isSmallScreen ? 100 : 150, // Redimensiona para telas menores
+                  'https://i.imgur.com/oC53opI.png',
+                  height: isSmallScreen ? 100 : 150,
                 ),
                 SizedBox(height: isSmallScreen ? 15 : 20),
                 Text(
@@ -55,7 +54,7 @@ class EmailConfirmationScreen extends StatelessWidget {
                   style: TextStyle(
                     fontSize: isSmallScreen ? 18 : 20,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white, // Texto branco
+                    color: Colors.white,
                   ),
                 ),
                 SizedBox(height: isSmallScreen ? 15 : 20),
@@ -64,11 +63,11 @@ class EmailConfirmationScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: isSmallScreen ? 14 : 16,
-                    color: Colors.white70, // Texto branco com opacidade
+                    color: Colors.white70,
                   ),
                 ),
                 SizedBox(height: isSmallScreen ? 15 : 20),
-                // Campo para inserir o código de verificação
+
                 SizedBox(
                   width: isSmallScreen ? double.infinity : 400,
                   child: TextField(
@@ -87,13 +86,10 @@ class EmailConfirmationScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: isSmallScreen ? 15 : 20),
-                // Botão de confirmar
                 SizedBox(
                   width: isSmallScreen ? double.infinity : 400,
                   child: ElevatedButton(
-                    onPressed: () {
-                      // Ação para confirmar o código
-                    },
+                    onPressed: () {},
                     child: Text(
                       "CONFIRMAR",
                       style: TextStyle(
@@ -104,10 +100,10 @@ class EmailConfirmationScreen extends StatelessWidget {
                     ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color.fromRGBO(62, 94, 150, 1),
-                      shadowColor: Colors.black.withOpacity(0.4), // Sombra leve
-                      elevation: 8, // Destaque com sombra
+                      shadowColor: Colors.black.withOpacity(0.4),
+                      elevation: 8,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12), // Borda arredondada
+                        borderRadius: BorderRadius.circular(12),
                       ),
                       padding: EdgeInsets.symmetric(
                         horizontal: isSmallScreen ? 50 : 100,
@@ -118,9 +114,7 @@ class EmailConfirmationScreen extends StatelessWidget {
                 ),
                 SizedBox(height: isSmallScreen ? 10 : 15),
                 TextButton(
-                  onPressed: () {
-                    // Ação para reenviar o código
-                  },
+                  onPressed: () {},
                   child: Text(
                     "Reenviar código",
                     style: TextStyle(

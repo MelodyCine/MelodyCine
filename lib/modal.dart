@@ -83,7 +83,7 @@ class MusicModal extends StatelessWidget {
           SizedBox(height: 16),
           ListView.builder(
             shrinkWrap: true,
-            itemCount: 6, // Número de músicas
+            itemCount: 6, 
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),

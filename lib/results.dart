@@ -4,7 +4,7 @@ import 'package:cinemelody/details.dart';
 import 'package:cinemelody/models/movie.dart';
 import 'package:cinemelody/search.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart'; // Adicione esta linha para usar o DateFormat
+import 'package:intl/intl.dart';
 
 class ResultsScreen extends StatelessWidget {
   const ResultsScreen({super.key, required this.query});
@@ -81,17 +81,16 @@ class ResultsScreen extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount:
-                      2, // Define 2 colunas para maior responsividade
+                  crossAxisCount: 2,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
-                  childAspectRatio: 0.66, // Mantém a proporção das imagens
+                  childAspectRatio: 0.66,
                 ),
                 itemCount: movies.length,
                 itemBuilder: (context, index) {
                   final movie = movies[index];
-                  final releaseDate = DateFormat('dd/MM/yyyy').format(
-                      DateTime.parse(movie.releaseDate)); // Formata a data
+                  final releaseDate = DateFormat('dd/MM/yyyy')
+                      .format(DateTime.parse(movie.releaseDate));
 
                   return GestureDetector(
                     onTap: () {
@@ -155,7 +154,7 @@ class ResultsScreen extends StatelessWidget {
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 8.0),
                             child: Text(
-                              releaseDate, // Usa a data formatada aqui
+                              releaseDate,
                               textAlign: TextAlign.center,
                               style: const TextStyle(
                                 fontFamily: 'Poppins',

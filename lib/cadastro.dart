@@ -19,17 +19,15 @@ class MyApp extends StatelessWidget {
 class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // Obtendo dimensões da tela para responsividade
     final size = MediaQuery.of(context).size;
-    final isSmallScreen = size.width < 600; // Verifica se a tela é pequena
-
+    final isSmallScreen = size.width < 600;
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color.fromRGBO(63, 94, 150, 1), // Cor azul escuro
-              Color.fromRGBO(20, 30, 48, 1), // Cor azul mais claro
+              Color.fromRGBO(63, 94, 150, 1),
+              Color.fromRGBO(20, 30, 48, 1),
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -43,22 +41,19 @@ class SignUpScreen extends StatelessWidget {
               children: <Widget>[
                 // Espaço para a logo
                 Image.network(
-                  'https://i.imgur.com/Yy4jB5X.png', // Substituir pela sua logo local
-                  height: isSmallScreen
-                      ? 100
-                      : 150, // Redimensiona a logo para telas menores
+                  'https://i.imgur.com/Yy4jB5X.png',
+                  height: isSmallScreen ? 100 : 150,
                 ),
                 SizedBox(height: isSmallScreen ? 15 : 20),
                 Text(
                   "Crie sua conta",
                   style: TextStyle(
-                    fontSize: isSmallScreen ? 20 : 24, // Fonte adaptável
+                    fontSize: isSmallScreen ? 20 : 24,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white, // Texto branco
+                    color: Colors.white,
                   ),
                 ),
                 SizedBox(height: isSmallScreen ? 15 : 20),
-                // Campo Nome
                 SizedBox(
                   width: isSmallScreen ? double.infinity : 400,
                   child: TextField(
@@ -77,7 +72,6 @@ class SignUpScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 10),
-                // Campo E-mail
                 SizedBox(
                   width: isSmallScreen ? double.infinity : 400,
                   child: TextField(
@@ -96,7 +90,6 @@ class SignUpScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 10),
-                // Campo Senha
                 SizedBox(
                   width: isSmallScreen ? double.infinity : 400,
                   child: TextField(
@@ -116,7 +109,6 @@ class SignUpScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 10),
-                // Campo Confirmação da Senha
                 SizedBox(
                   width: isSmallScreen ? double.infinity : 400,
                   child: TextField(
@@ -136,22 +128,16 @@ class SignUpScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: isSmallScreen ? 15 : 20),
-                // Botão de cadastro
                 SizedBox(
                   width: isSmallScreen ? double.infinity : 400,
                   child: ElevatedButton(
                     onPressed: () {
-
-                        // Navegar para a tela de cadastro
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => AccountCreatedScreen(),
-                      ),
-                    );
-
-
-
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AccountCreatedScreen(),
+                        ),
+                      );
                     },
                     child: Text(
                       "CADASTRAR",
@@ -178,7 +164,6 @@ class SignUpScreen extends StatelessWidget {
                 SizedBox(height: isSmallScreen ? 10 : 15),
                 TextButton(
                   onPressed: () {
-                    // Navegar para a tela de cadastro
                     Navigator.push(
                       context,
                       MaterialPageRoute(

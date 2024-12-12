@@ -4,7 +4,7 @@ import 'package:cinemelody/home_screen.dart';
 import 'package:cinemelody/like.dart';
 import 'package:cinemelody/results.dart';
 import 'package:flutter/material.dart';
-import 'api/api.dart'; 
+import 'api/api.dart';
 import 'models/movie.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -17,23 +17,23 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   late Future<List<Movie>> trendingMovies;
   late Future<List<Movie>> searchedMovies;
-  TextEditingController _controller = TextEditingController(); 
+  TextEditingController _controller = TextEditingController();
   bool isSearching = false;
 
   @override
   void initState() {
     super.initState();
-    trendingMovies = Api().getTrendingMovies(); 
+    trendingMovies = Api().getTrendingMovies();
   }
 
   void _searchMovie() {
-    String query = _controller.text;  
-    print("Texto digitado: $query");  
+    String query = _controller.text;
+    print("Texto digitado: $query");
     if (query.isNotEmpty) {
       setState(() {
         isSearching = true;
       });
-      // Navega para a ResultsScreen e passa o texto da pesquisa como parâmetro
+
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -42,37 +42,36 @@ class _SearchScreenState extends State<SearchScreen> {
       );
     } else {
       setState(() {
-        isSearching = false; 
+        isSearching = false;
       });
     }
   }
 
-  // Função de navegação
-    void _navigateTo(int index) {
-      switch (index) {
-        case 0:
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => HomeScreen()), // Navega para a HomeScreen
-          );
-          break;
-        case 2:
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => LikedSongsScreen()), // Navega para a tela de favoritos
-          );
-          break;
-        default:
-          break;
-      }
+  void _navigateTo(int index) {
+    switch (index) {
+      case 0:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => HomeScreen()),
+        );
+        break;
+      case 2:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => LikedSongsScreen()),
+        );
+        break;
+      default:
+        break;
     }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-         backgroundColor: const Color(0xFF1B263B),
+        backgroundColor: const Color(0xFF1B263B),
         elevation: 0,
         title: Container(
           decoration: BoxDecoration(
@@ -94,19 +93,18 @@ class _SearchScreenState extends State<SearchScreen> {
                   decoration: const InputDecoration(
                     hintText: "Pesquise seu filme",
                     border: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                   ),
                 ),
               ),
               IconButton(
                 icon: Icon(Icons.search),
-                onPressed: _searchMovie, 
+                onPressed: _searchMovie,
               ),
             ],
           ),
-          
         ),
-        
       ),
       body: Container(
         decoration: const BoxDecoration(
@@ -122,7 +120,7 @@ class _SearchScreenState extends State<SearchScreen> {
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: FutureBuilder<List<Movie>>(
-            future: isSearching ? searchedMovies : trendingMovies, 
+            future: isSearching ? searchedMovies : trendingMovies,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
@@ -134,7 +132,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 final movies = snapshot.data!;
                 return GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3, 
+                    crossAxisCount: 3,
                     crossAxisSpacing: 10.0,
                     mainAxisSpacing: 10.0,
                     childAspectRatio: 0.6,
@@ -145,16 +143,17 @@ class _SearchScreenState extends State<SearchScreen> {
                     return GestureDetector(
                       onTap: () {
                         Navigator.push(
-                          context, 
+                          context,
                           MaterialPageRoute(
-                            builder: (context) => DetailsScreen(movie: movies[index]),
+                            builder: (context) =>
+                                DetailsScreen(movie: movies[index]),
                           ),
                         );
                       },
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10.0),
                         child: Image.network(
-                          Constants.imagePath + movie.posterPath, 
+                          Constants.imagePath + movie.posterPath,
                           fit: BoxFit.cover,
                           errorBuilder: (context, error, stackTrace) =>
                               const Icon(Icons.broken_image, size: 50),
