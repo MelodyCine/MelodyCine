@@ -47,10 +47,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
     try {
       final result = await Gemini.instance.prompt(parts: [
         Part.text(
-            'Você é um especialista em listas de musicas presentes no filme: ${widget.movie.title} siga essas regras: Não diga que não sabe a trilha sonora. Não diga que a trilha não existe. Não diga que o filme não existe. Entregue a resposta em formato de lista. Sempre que possivel mencione os autores'),
+            'Você é um especialista em trilhas sonoras de filmes e está focado em listar as músicas presentes no filme: ${widget.movie.title}. Siga estas diretrizes: Nunca afirme que não conhece a trilha sonora, que ela não existe ou que o filme não existe. Sempre forneça a resposta no formato de uma lista clara e organizada. Sempre que possível, inclua os nomes dos autores ou artistas das músicas. Estruture a resposta de forma útil e envolvente para o usuário.')
       ]);
       setState(() {
-        geminiResult = result?.output;
+        // Remove os asteriscos e substitui por texto limpo
+        geminiResult = result?.output?.replaceAll('**', '');
+        geminiResult = result?.output?.replaceAll('*', '');
       });
     } catch (e) {
       print('Error: $e');
@@ -171,49 +173,51 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   ],
                 ),
                 const SizedBox(height: 20),
-                const SizedBox(height: 10),
-                const Text(
-                  'Resultado da pesquisa por IA:',
-                  style: TextStyle(
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                    fontSize: 18,
-                  ),
-                ),
-                const SizedBox(height: 20),
-
-                geminiResult == null
-                    ? Center(
-                        child: const CircularProgressIndicator(),
-                      )
-                    : Text(
-                        geminiResult ?? 'Erro ao carregar resultado.',
-                        style: const TextStyle(
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.normal,
-                          color: Colors.white,
-                          fontSize: 14,
-                        ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Trilha sonora',
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                        fontSize: 18,
                       ),
-                // Container(
-                //   height: 100,
-                //   decoration: BoxDecoration(
-                //     color: Colors.white.withOpacity(0.1),
-                //     borderRadius: BorderRadius.circular(8),
-                //   ),
-                //   child: const Center(
-                //     child: Text(
-                //       'Lista de músicas não disponível',
-                //       style: TextStyle(
-                //         fontFamily: 'Poppins',
-                //         fontWeight: FontWeight.normal,
-                //         color: Colors.white,
-                //         fontSize: 14,
-                //       ),
-                //     ),
-                //   ),
-                // ),
+                    ),
+                    const Text(
+                      '(busca feita por IA)',
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.normal,
+                        color: Colors.white,
+                        fontSize: 10,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  padding: const EdgeInsets.all(12),
+                  child: geminiResult == null
+                      ? const Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : Text(
+                          geminiResult ?? 'Erro ao carregar resultado.',
+                          textAlign: TextAlign.justify, // Justifica o texto
+                          style: const TextStyle(
+                            fontFamily: 'Poppins', // Fonte Poppins
+                            fontWeight: FontWeight.normal,
+                            color: Colors.white,
+                            fontSize: 14,
+                          ),
+                        ),
+                ),
                 const SizedBox(height: 20),
                 const Text(
                   'Ouvir trilha sonora',
