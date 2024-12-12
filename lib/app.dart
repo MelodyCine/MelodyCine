@@ -1,5 +1,4 @@
 import 'package:cinemelody/home_screen.dart';
-import 'package:cinemelody/loginApp.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-       debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: false,
       title: 'Batman App',
       home: Scaffold(
         body: const App(),
@@ -26,11 +25,19 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final buttonPadding = EdgeInsets.symmetric(
+      horizontal: screenWidth * 0.2,
+      vertical: screenHeight * 0.02,
+    );
+   
+
     return Stack(
       children: [
         Positioned.fill(
           child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -44,7 +51,7 @@ class App extends StatelessWidget {
           ),
         ),
         Positioned(
-          bottom: 20,
+          bottom: screenHeight * 0.05,
           left: 0,
           right: 0,
           child: Column(
@@ -57,45 +64,59 @@ class App extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => HomeScreen()),
                   );
                 },
-                child: const Text(
+                child: Text(
                   'Entrar',
                   style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w700,
                     color: Colors.white,
-                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black,
-                  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                  padding: buttonPadding,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(10),
                   ),
+                  minimumSize:
+                      Size(screenWidth * 0.6, 50), 
                 ),
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: screenHeight * 0.02),
               ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: const Text(
+                child: Text(
                   'Sair',
                   style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w700,
                     color: Colors.white,
-                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
-                  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                  backgroundColor: const Color.fromRGBO(124, 10, 9, 1),
+                  padding: buttonPadding,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(10),
                   ),
+                  minimumSize:
+                      Size(screenWidth * 0.6, 50), 
                 ),
               ),
-              const SizedBox(height: 30),
+              SizedBox(height: screenHeight * 0.04),
               const Text(
                 'Pesquise por filmes, séries ou assista trailers',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                  fontSize: 14,
+                ),
+                textAlign: TextAlign.center,
               ),
             ],
           ),

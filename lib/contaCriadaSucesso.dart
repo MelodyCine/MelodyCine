@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: AccountCreatedScreen(), // Tela de sucesso
+      home: AccountCreatedScreen(),
     );
   }
 }
@@ -18,21 +18,18 @@ class MyApp extends StatelessWidget {
 class AccountCreatedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // Obtendo dimensões da tela para responsividade
     final size = MediaQuery.of(context).size;
-    final isSmallScreen = size.width < 600; 
-    final isMediumScreen =
-        size.width >= 600 && size.width < 1200; 
-    final isLargeScreen =
-        size.width >= 1200; 
+    final isSmallScreen = size.width < 600;
+    final isMediumScreen = size.width >= 600 && size.width < 1200;
+    final isLargeScreen = size.width >= 1200;
 
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color.fromRGBO(63, 94, 150, 1), 
-              Color.fromRGBO(20, 30, 48, 1), 
+              Color.fromRGBO(63, 94, 150, 1),
+              Color.fromRGBO(20, 30, 48, 1),
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -44,12 +41,9 @@ class AccountCreatedScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-               
                 Image.network(
-                  'https://i.imgur.com/oC53opI.png', 
-                  height: isSmallScreen
-                      ? 100
-                      : 150, 
+                  'https://i.imgur.com/oC53opI.png',
+                  height: isSmallScreen ? 100 : 150,
                 ),
                 SizedBox(height: isSmallScreen ? 15 : 20),
                 Text(
@@ -58,7 +52,7 @@ class AccountCreatedScreen extends StatelessWidget {
                   style: TextStyle(
                     fontSize: isSmallScreen ? 18 : 20,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white, // Texto branco
+                    color: Colors.white,
                   ),
                 ),
                 SizedBox(height: isSmallScreen ? 15 : 20),
@@ -67,22 +61,20 @@ class AccountCreatedScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: isSmallScreen ? 14 : 16,
-                    color: Colors.white70, 
+                    color: Colors.white70,
                   ),
                 ),
                 SizedBox(height: isSmallScreen ? 15 : 20),
-                
                 Align(
-                  alignment: Alignment.center, 
+                  alignment: Alignment.center,
                   child: SizedBox(
                     width: isLargeScreen
-                        ? 350 
+                        ? 350
                         : isMediumScreen
-                            ? 300 
-                            : 250, 
+                            ? 300
+                            : 250,
                     child: ElevatedButton(
                       onPressed: () {
-                        // Navegar para a tela de cadastro
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -97,21 +89,17 @@ class AccountCreatedScreen extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
-                        textAlign:
-                            TextAlign.center, 
+                        textAlign: TextAlign.center,
                       ),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color.fromRGBO(62, 94, 150, 1),
-                        shadowColor:
-                            Colors.black.withOpacity(0.4), 
-                        elevation: 8, 
+                        shadowColor: Colors.black.withOpacity(0.4),
+                        elevation: 8,
                         shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(12), 
+                          borderRadius: BorderRadius.circular(12),
                         ),
                         padding: EdgeInsets.symmetric(
-                          horizontal:
-                              40, 
+                          horizontal: 40,
                           vertical: 15,
                         ),
                       ),

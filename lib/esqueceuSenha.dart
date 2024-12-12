@@ -87,7 +87,6 @@ class ForgotPasswordScreen extends StatelessWidget {
                   width: isSmallScreen ? double.infinity : 400,
                   child: ElevatedButton(
                     onPressed: () {
-                      // Aqui você pode adicionar a lógica para enviar o e-mail de recuperação.
                       showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
@@ -127,9 +126,8 @@ class ForgotPasswordScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: isSmallScreen ? 10 : 15),
-                   TextButton(
+                TextButton(
                   onPressed: () {
-                    // Navegar para a tela de cadastro
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -153,4 +151,3 @@ class ForgotPasswordScreen extends StatelessWidget {
     );
   }
 }
-

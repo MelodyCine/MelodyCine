@@ -4,7 +4,7 @@ import 'package:cinemelody/constants.dart';
 import 'package:cinemelody/widgets/movies_slider.dart';
 import 'package:cinemelody/api/api.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';  // Importando os ícones
+import 'package:font_awesome_flutter/font_awesome_flutter.dart'; 
 import 'package:intl/intl.dart';
 
 class DetailsScreen extends StatelessWidget {
@@ -22,7 +22,7 @@ class DetailsScreen extends StatelessWidget {
     }
   }
 
-   // Função para formatar a data no formato pt-BR
+  // Função para formatar a data no formato pt-BR
   String formatDate(String date) {
     DateTime parsedDate = DateTime.parse(date);
     return DateFormat('dd/MM/yyyy').format(parsedDate);
@@ -63,7 +63,6 @@ class DetailsScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Imagem do Filme
                 Center(
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(16),
@@ -76,8 +75,6 @@ class DetailsScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-
-                // Título do Filme
                 Center(
                   child: Text(
                     movie.title,
@@ -91,8 +88,6 @@ class DetailsScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-
-                // Descrição do Filme
                 Text(
                   movie.overview,
                   textAlign: TextAlign.justify,
@@ -104,8 +99,6 @@ class DetailsScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-
-                // Ano de Lançamento com Ícone
                 Row(
                   children: [
                     const Icon(
@@ -126,8 +119,6 @@ class DetailsScreen extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 10),
-
-                // Votos com Ícone
                 Row(
                   children: [
                     const Icon(
@@ -148,8 +139,6 @@ class DetailsScreen extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 20),
-
-                // Trilha Sonora
                 const Text(
                   'Trilha sonora:',
                   style: TextStyle(
@@ -179,10 +168,8 @@ class DetailsScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-
-                // Links
                 const Text(
-                  'Ouvir trilha sonora:',
+                  'Ouvir trilha sonora',
                   style: TextStyle(
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w700,
@@ -191,65 +178,81 @@ class DetailsScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    TextButton.icon(
-                      onPressed: () {
-                        _launchURL("https://open.spotify.com/search/trilha%20sonora%20filme:${movie.title}");
-                      },
-                      icon: const FaIcon(
-                        FontAwesomeIcons.spotify,
-                        color: Colors.green,
-                      ),
-                      label: const Text(
-                        'Spotify',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          color: Colors.blueAccent,
-                          fontSize: 16,
+                    Column(
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            _launchURL(
+                                "https://open.spotify.com/search/trilha%20sonora%20filme:${movie.title}");
+                          },
+                          icon: const FaIcon(
+                            FontAwesomeIcons.spotify,
+                            color: Colors.green,
+                          ),
                         ),
-                      ),
+                        const Text(
+                          'Spotify',
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
                     ),
-                    TextButton.icon(
-                      onPressed: () {
-                        _launchURL("https://music.youtube.com/search?q=trilha%20sonora%20filme:${movie.title}");
-                      },
-                      icon: const FaIcon(
-                        FontAwesomeIcons.youtube,
-                        color: Colors.red,
-                      ),
-                      label: const Text(
-                        'Youtube Music',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          color: Colors.blueAccent,
-                          fontSize: 16,
+                    Column(
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            _launchURL(
+                                "https://music.youtube.com/search?q=trilha%20sonora%20filme:${movie.title}");
+                          },
+                          icon: const FaIcon(
+                            FontAwesomeIcons.youtube,
+                            color: Colors.red,
+                          ),
                         ),
-                      ),
+                        const Text(
+                          'YouTube',
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
                     ),
-                    TextButton.icon(
-                      onPressed: () {
-                        _launchURL("https://music.apple.com/br/search?term=trilha%20sonora%20filme:${movie.title}");
-                      },
-                      icon: const FaIcon(
-                        FontAwesomeIcons.apple,
-                        color: Colors.black,
-                      ),
-                      label: const Text(
-                        'Apple Music',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          color: Colors.blueAccent,
-                          fontSize: 16,
+                    Column(
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            _launchURL(
+                                "https://music.apple.com/br/search?term=trilha%20sonora%20filme:${movie.title}");
+                          },
+                          icon: const FaIcon(
+                            FontAwesomeIcons.apple,
+                            color: Colors.black,
+                          ),
                         ),
-                      ),
+                        const Text(
+                          'Apple Music',
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
                 const SizedBox(height: 20),
-
-                // Recomendações
                 const Text(
                   'Recomendações',
                   style: TextStyle(

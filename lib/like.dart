@@ -25,7 +25,7 @@ class LikedSongsScreen extends StatefulWidget {
 
 class _LikedSongsScreenState extends State<LikedSongsScreen> {
   int _selectedIndex =
-      2; // 2 indica que "Favoritos" está selecionado inicialmente.
+      2; 
 
   final List<Map<String, String>> songs = [
     {
@@ -69,7 +69,7 @@ class _LikedSongsScreenState extends State<LikedSongsScreen> {
     setState(() {
       _selectedIndex = index;
     });
-    // Navegar entre as telas
+   
     if (index == 0) {
       Navigator.pushReplacement(
         context,
@@ -86,10 +86,11 @@ class _LikedSongsScreenState extends State<LikedSongsScreen> {
   @override
   void initState() {
     super.initState();
-    // Exibe a mensagem logo ao entrar na tela
+    
     Future.delayed(Duration.zero, () {
       showDialog(
         context: context,
+        barrierDismissible: false, 
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text(
@@ -114,7 +115,7 @@ class _LikedSongsScreenState extends State<LikedSongsScreen> {
             ),
             actions: [
               Center(
-                // Centraliza o botão
+              
                 child: TextButton(
                   onPressed: () {
                     Navigator.pushReplacement(

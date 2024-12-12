@@ -3,7 +3,6 @@ import 'package:cinemelody/esqueceuSenha.dart';
 import 'package:flutter/material.dart';
 import 'home_screen.dart';
 
-
 void main() {
   runApp(MyApp());
 }
@@ -56,7 +55,6 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: isSmallScreen ? 15 : 20),
-                // Campo de E-mail
                 SizedBox(
                   width: isSmallScreen ? double.infinity : 400,
                   child: TextField(
@@ -75,7 +73,6 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 10),
-                // Campo de Senha
                 SizedBox(
                   width: isSmallScreen ? double.infinity : 400,
                   child: TextField(
@@ -95,18 +92,16 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: isSmallScreen ? 15 : 20),
-                // Botão de Entrar
                 SizedBox(
                   width: isSmallScreen ? double.infinity : 400,
                   child: ElevatedButton(
                     onPressed: () {
-                       // Navegar para a tela de cadastro
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => HomeScreen(),
-                      ),
-                    );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomeScreen(),
+                        ),
+                      );
                     },
                     child: Text(
                       "ENTRAR",
@@ -131,10 +126,8 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: isSmallScreen ? 10 : 15),
-                // Botões de texto adicionais
-                  TextButton(
+                TextButton(
                   onPressed: () {
-                    // Navegar para a tela de cadastro
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -150,10 +143,8 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                // Botão para tela de cadastro
                 TextButton(
                   onPressed: () {
-                    // Navegar para a tela de cadastro
                     Navigator.push(
                       context,
                       MaterialPageRoute(

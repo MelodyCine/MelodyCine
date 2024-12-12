@@ -28,7 +28,6 @@ class MusicScreen extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          // Fundo com gradiente
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -45,11 +44,10 @@ class MusicScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Imagem com gradiente overlay
                 Stack(
                   children: [
                     Container(
-                      height: isSmallScreen ? 200 : 300, // Maior imagem para telas maiores
+                      height: isSmallScreen ? 200 : 300,
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: NetworkImage(
@@ -59,7 +57,7 @@ class MusicScreen extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      height: isSmallScreen ? 200 : 300, // Consistente com a altura
+                      height: isSmallScreen ? 200 : 300,
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
@@ -71,7 +69,6 @@ class MusicScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    // Botão de voltar
                     Positioned(
                       top: 40,
                       left: 16,
@@ -164,7 +161,7 @@ class MusicScreen extends StatelessWidget {
             label: 'Favoritos',
           ),
         ],
-        currentIndex: 0, // Ícone selecionado inicial
+        currentIndex: 0,
         selectedFontSize: 14,
         unselectedFontSize: 12,
       ),
@@ -177,7 +174,8 @@ class MusicTile extends StatelessWidget {
   final String artist;
   final bool isSmallScreen;
 
-  MusicTile({required this.title, required this.artist, required this.isSmallScreen});
+  MusicTile(
+      {required this.title, required this.artist, required this.isSmallScreen});
 
   @override
   Widget build(BuildContext context) {
@@ -185,7 +183,7 @@ class MusicTile extends StatelessWidget {
       leading: CircleAvatar(
         radius: isSmallScreen ? 20 : 25,
         backgroundImage: NetworkImage(
-          'https://placekitten.com/200/200', // Substitua pela URL da imagem do álbum/música
+          'https://placekitten.com/200/200',
         ),
       ),
       title: Text(
@@ -206,11 +204,13 @@ class MusicTile extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           IconButton(
-            icon: Icon(Icons.play_arrow, color: Colors.white, size: isSmallScreen ? 20 : 24),
+            icon: Icon(Icons.play_arrow,
+                color: Colors.white, size: isSmallScreen ? 20 : 24),
             onPressed: () {},
           ),
           IconButton(
-            icon: Icon(Icons.more_vert, color: Colors.white, size: isSmallScreen ? 20 : 24),
+            icon: Icon(Icons.more_vert,
+                color: Colors.white, size: isSmallScreen ? 20 : 24),
             onPressed: () {},
           ),
         ],
