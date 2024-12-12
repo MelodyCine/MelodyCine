@@ -3,14 +3,28 @@ import 'package:cinemelody/models/movie.dart';
 import 'package:cinemelody/constants.dart';
 import 'package:cinemelody/widgets/movies_slider.dart';
 import 'package:cinemelody/api/api.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart'; 
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
-class DetailsScreen extends StatelessWidget {
+class DetailsScreen extends StatefulWidget {
   const DetailsScreen({super.key, required this.movie});
 
   final Movie movie;
+
+  @override
+  _DetailsScreenState createState() => _DetailsScreenState();
+}
+
+class _DetailsScreenState extends State<DetailsScreen> {
+  String? geminiResult;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchGeminiResult();
+  }
 
   // Função para abrir URLs
   Future<void> _launchURL(String url) async {
@@ -28,6 +42,24 @@ class DetailsScreen extends StatelessWidget {
     return DateFormat('dd/MM/yyyy').format(parsedDate);
   }
 
+  // Função para buscar o resultado do Gemini
+  Future<void> _fetchGeminiResult() async {
+    try {
+      final result = await Gemini.instance.prompt(parts: [
+        Part.text(
+            'Você é um especialista em listas de musicas presentes no filme: ${widget.movie.title} siga essas regras: Não diga que não sabe a trilha sonora. Não diga que a trilha não existe. Não diga que o filme não existe. Entregue a resposta em formato de lista. Sempre que possivel mencione os autores'),
+      ]);
+      setState(() {
+        geminiResult = result?.output;
+      });
+    } catch (e) {
+      print('Error: $e');
+      setState(() {
+        geminiResult = 'Erro ao buscar resposta';
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final Future<List<Movie>> recommendedMovies = Api().getTopRateMovies();
@@ -35,7 +67,7 @@ class DetailsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          movie.title,
+          widget.movie.title,
           style: const TextStyle(
             fontFamily: 'Poppins',
             fontWeight: FontWeight.w700,
@@ -67,7 +99,7 @@ class DetailsScreen extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(16),
                     child: Image.network(
-                      Constants.imagePath + movie.backdropPath,
+                      Constants.imagePath + widget.movie.backdropPath,
                       height: 200,
                       width: double.infinity,
                       fit: BoxFit.cover,
@@ -77,7 +109,7 @@ class DetailsScreen extends StatelessWidget {
                 const SizedBox(height: 20),
                 Center(
                   child: Text(
-                    movie.title,
+                    widget.movie.title,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontFamily: 'Poppins',
@@ -89,7 +121,7 @@ class DetailsScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  movie.overview,
+                  widget.movie.overview,
                   textAlign: TextAlign.justify,
                   style: const TextStyle(
                     fontFamily: 'Poppins',
@@ -108,7 +140,7 @@ class DetailsScreen extends StatelessWidget {
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      'Ano de lançamento: ${formatDate(movie.releaseDate)}',
+                      'Ano de lançamento: ${formatDate(widget.movie.releaseDate)}',
                       style: const TextStyle(
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w700,
@@ -128,7 +160,7 @@ class DetailsScreen extends StatelessWidget {
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      'Votos: ${movie.voteAverage}',
+                      'Votos: ${widget.movie.voteAverage}',
                       style: const TextStyle(
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w700,
@@ -139,8 +171,9 @@ class DetailsScreen extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 20),
+                const SizedBox(height: 10),
                 const Text(
-                  'Trilha sonora:',
+                  'Resultado da pesquisa por IA:',
                   style: TextStyle(
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w700,
@@ -148,25 +181,39 @@ class DetailsScreen extends StatelessWidget {
                     fontSize: 18,
                   ),
                 ),
-                const SizedBox(height: 10),
-                Container(
-                  height: 100,
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: const Center(
-                    child: Text(
-                      'Lista de músicas não disponível',
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.normal,
-                        color: Colors.white,
-                        fontSize: 14,
+                const SizedBox(height: 20),
+
+                geminiResult == null
+                    ? Center(
+                        child: const CircularProgressIndicator(),
+                      )
+                    : Text(
+                        geminiResult ?? 'Erro ao carregar resultado.',
+                        style: const TextStyle(
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.normal,
+                          color: Colors.white,
+                          fontSize: 14,
+                        ),
                       ),
-                    ),
-                  ),
-                ),
+                // Container(
+                //   height: 100,
+                //   decoration: BoxDecoration(
+                //     color: Colors.white.withOpacity(0.1),
+                //     borderRadius: BorderRadius.circular(8),
+                //   ),
+                //   child: const Center(
+                //     child: Text(
+                //       'Lista de músicas não disponível',
+                //       style: TextStyle(
+                //         fontFamily: 'Poppins',
+                //         fontWeight: FontWeight.normal,
+                //         color: Colors.white,
+                //         fontSize: 14,
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 const SizedBox(height: 20),
                 const Text(
                   'Ouvir trilha sonora',
@@ -186,7 +233,7 @@ class DetailsScreen extends StatelessWidget {
                         IconButton(
                           onPressed: () {
                             _launchURL(
-                                "https://open.spotify.com/search/trilha%20sonora%20filme:${movie.title}");
+                                "https://open.spotify.com/search/trilha%20sonora%20filme:${widget.movie.title}");
                           },
                           icon: const FaIcon(
                             FontAwesomeIcons.spotify,
@@ -209,7 +256,7 @@ class DetailsScreen extends StatelessWidget {
                         IconButton(
                           onPressed: () {
                             _launchURL(
-                                "https://music.youtube.com/search?q=trilha%20sonora%20filme:${movie.title}");
+                                "https://music.youtube.com/search?q=trilha%20sonora%20filme:${widget.movie.title}");
                           },
                           icon: const FaIcon(
                             FontAwesomeIcons.youtube,
@@ -232,7 +279,7 @@ class DetailsScreen extends StatelessWidget {
                         IconButton(
                           onPressed: () {
                             _launchURL(
-                                "https://music.apple.com/br/search?term=trilha%20sonora%20filme:${movie.title}");
+                                "https://music.apple.com/br/search?term=trilha%20sonora%20filme:${widget.movie.title}");
                           },
                           icon: const FaIcon(
                             FontAwesomeIcons.apple,
@@ -272,6 +319,7 @@ class DetailsScreen extends StatelessWidget {
                     },
                   ),
                 ),
+                const SizedBox(height: 20),
               ],
             ),
           ),
